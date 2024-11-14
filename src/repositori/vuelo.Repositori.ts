@@ -1,6 +1,7 @@
 import { Pool } from "pg";
 import { getPoolConnectionPgs } from "../../db/source.psg";
-import { vueloModelo } from "../application/vuelo.Controller";
+import { vueloModelo } from "../interfaces/modelo";
+
 
 export class vueloRepositori {
 

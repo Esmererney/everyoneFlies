@@ -1,5 +1,6 @@
 import Express from "express";
-import { VueloController } from "../../src/application/vuelo.Controller";
+import { VueloController } from "../../application/vuelo.Controller";
+
 
 // import { ProductoController } from "";
 // Objetivo: Exponer las rutas de la api

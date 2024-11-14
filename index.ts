@@ -1,14 +1,14 @@
 import Express from "express";
-import { routes } from "./infraestuture/routes/routes.index";
-import middleware404 from "./infraestuture/middleware/middleware";
+
 import { getPoolConnectionPgs } from "./db/source.psg";
+import { routes } from "./src/infraestuture/routes/routes.index";
+import middleware404 from "./src/infraestuture/middleware/middleware";
 
 const createServer = async () => {
   try {
     
-    console.log('Entorno:', process.env.NODE_ENV);
+  console.log('Entorno:', process.env.NODE_ENV);
    const conexion =  getPoolConnectionPgs();
-
 
    conexion.connect().then(() => {
     console.log('Conexión exitosa');
