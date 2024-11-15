@@ -1,0 +1,10 @@
+
+{
+  "HOST": "",
+  "DB_PORT": 5432,
+  "USER": "",
+  "PASSWORD": "", 
+  "DATABASE": "",
+  "SSL": "true"
+
+}
