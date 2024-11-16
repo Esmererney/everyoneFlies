@@ -4,23 +4,23 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 export class Pasajero {
   
   @PrimaryGeneratedColumn()
-    id_pasajero!: number;
+    id_pasajero :  number = 0
 
   @Column()
-    nombre!: string;
+    nombre?: string;
 
   @Column()
-    apellido!: string;
+    apellido?: string;
 
   @Column()
-    email!: string;
+    email?: string;
 
   @Column()
-    telefono!: string;
+    telefono?: string;
 
   @Column()
-    nacionalidad!: string;
+    nacionalidad?: string;
 
   @Column()
-    id_pasaporte!: string;  // Si 'id_pasaporte' es numérico, puedes cambiarlo a tipo `number`
+    id_pasaporte?: number; 
 }

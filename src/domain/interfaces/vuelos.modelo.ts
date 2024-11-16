@@ -5,35 +5,35 @@ import { Entity, Column, PrimaryGeneratedColumn, Unique } from "typeorm";
 export class Vuelo {
   
   @PrimaryGeneratedColumn()
-    id_vuelo! : number
+  id_vuelo : number = 0 ; 
 
-  @Column({ type: "varchar", length: 10, nullable: false })
+  @Column()
   cod_vuelo!: string;
 
-  @Column({ type: "varchar", length: 100, nullable: false })
-  aerolinea!: string;
+  @Column()
+  aerolinea?: string;
 
-  @Column({ type: "varchar", length: 100, nullable: true })
-  origen_aeropuerto!: string;
+  @Column()
+  origen_aeropuerto?: string;
 
-  @Column({ type: "varchar", length: 100, nullable: true })
-  destino_aeropuerto!: string;
+  @Column()
+  destino_aeropuerto?: string;
 
-  @Column({ type: "timestamp", nullable: true })
-  fecha_salida!: Date;
+  @Column()
+  fecha_salida?: Date;
 
-  @Column({ type: "timestamp", nullable: true })
-  fecha_llegada!: Date;
+  @Column()
+  fecha_llegada?: Date;
 
-  @Column({ type: "int", nullable: true })
-  duracion!: number;
+  @Column()
+  duracion?: number;
 
-  @Column({ type: "int", nullable: true })
-    total_asientos!: number;
+  @Column()
+    total_asientos?: number;
 
-  @Column({ type: "int", nullable: true })
-    asientos_disponibles!: number;
+  @Column()
+    asientos_disponibles?: number;
 
-  @Column({ type: "varchar", length: 50, nullable: true })
-    estado_vuelo!: string;
+  @Column()
+    estado_vuelo?: string;
 }
