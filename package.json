@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "variable_entorno": "$env:NODE_ENV='production'",
+    "set-env": "cross-env NODE_ENV=production",
     "dev": "nodemon -e ts,json --exec ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,17 +21,20 @@
     "nodemon": "^3.1.7",
     "pdf-lib": "^1.17.1",
     "pg": "^8.13.1",
+    "reflect-metadata": "^0.2.2",
     "save": "^2.9.0",
-    "typeorm": "^0.3.20",
-    "typescript": "^5.6.3"
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@types/config": "^3.3.5",
     "@types/dialogflow": "^1.0.0",
     "@types/express": "^5.0.0",
+    "@types/node": "^22.9.0",
     "@types/nodemailer": "^6.4.16",
     "@types/pg": "^8.11.10",
     "@types/uuid": "^10.0.0",
-    "ts-node": "^10.9.2"
+    "cross-env": "^7.0.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
   }
 }
