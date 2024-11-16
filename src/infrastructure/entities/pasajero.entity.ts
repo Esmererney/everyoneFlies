@@ -14,7 +14,7 @@ export class PasajeroEntity {
     @Column()
     email: string
 
-    @Column({ length: 10 })
+    @Column()
     telefono: number
 
     @Column()
