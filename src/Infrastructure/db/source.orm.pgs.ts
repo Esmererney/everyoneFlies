@@ -6,6 +6,8 @@ import { Pasajero } from "../../domain/interfaces/pasajero.modelo";
 import { Asiento } from "../../domain/interfaces/asientos.modelo";
 import { Usuario } from "../../domain/interfaces/usuarios.modelo";
 import { PreciosTemporales } from "../../domain/interfaces/precios_temporales.modelo";
+import { Categoria } from "../../domain/interfaces/categorias.modelo";
+
 
 const dbSSL = config.get<boolean>("SSL");
 
