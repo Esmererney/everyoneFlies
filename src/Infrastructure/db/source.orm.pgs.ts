@@ -19,6 +19,6 @@ export const AppDataSourcePgs = new DataSource({
   password: config.get<string>("PASSWORD"),
   database: config.get<string>("DATABASE"),
   ssl: dbSSL ? { rejectUnauthorized: false } : false,
-  entities: [Vuelo , Pasajero , Asiento ,Usuario , PreciosTemporales],
+  entities: [Vuelo, Pasajero, Asiento, Usuario, PreciosTemporales, Categoria],
   synchronize: true,
 });

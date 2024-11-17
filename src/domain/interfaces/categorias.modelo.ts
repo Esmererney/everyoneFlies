@@ -13,7 +13,9 @@ export class Categoria {
   @Column("decimal")
   precio_base: number;
 
+
   @OneToMany(() => Asiento, (asiento) => asiento.categoria)
+  //asientos: Asiento[]; // Cambiado a un array de Asiento
   asientos: Asiento = {} as Asiento; // revisar
   
 
@@ -25,5 +27,7 @@ export class Categoria {
     this.id_categoria = body.id_categoria;
     this.nombre_categoria = body.nombre_categoria;
     this.precio_base = body.precio_base;
+    //this.asientos = [];
   }
 }
+
