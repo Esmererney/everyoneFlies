@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
     password: config.get('PASSWORD'),
     database: config.get('DATABASE'),
     entities: [ ], // NOTA: Registrar cada entidad "tabla"
-    synchronize: false,
+    synchronize: true,
 })
 
 

@@ -5,29 +5,18 @@ import { Asiento } from "./asientos.modelo";
 export class Categoria {
 
   @PrimaryGeneratedColumn()
-  id_categoria: number;
+  id_categoria?: number;
 
   @Column()
-  nombre_categoria: string;
+  nombre_categoria?: string;
 
   @Column("decimal")
-  precio_base: number;
+  precio_base?: number;
 
 
   @OneToMany(() => Asiento, (asiento) => asiento.categoria)
   //asientos: Asiento[]; // Cambiado a un array de Asiento
-  asientos: Asiento = {} as Asiento; // revisar
-  
+  asientos?: Asiento[]; // revisar
 
-  constructor(body: {
-    id_categoria: number,
-    nombre_categoria: string,
-    precio_base: number
-  }) {
-    this.id_categoria = body.id_categoria;
-    this.nombre_categoria = body.nombre_categoria;
-    this.precio_base = body.precio_base;
-    //this.asientos = [];
-  }
 }
 
