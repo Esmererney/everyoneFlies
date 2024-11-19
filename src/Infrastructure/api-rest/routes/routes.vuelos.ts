@@ -1,5 +1,5 @@
 import Express from "express";
-import { VueloController } from "../../application/vuelo.controller";
+import { VueloController } from "../../../application/vuelo.Controller";
 
 
 // import { ProductoController } from "";

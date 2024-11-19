@@ -1,18 +1,18 @@
 import {Entity,PrimaryGeneratedColumn,Column,Unique,ManyToOne, JoinColumn,} from "typeorm";
-import { Vuelo } from "./vuelos.modelo";
-import { PreciosTemporales } from "./precios_temporales.modelo";
+import { VueloEntity } from "./vuelos.Entity";
+import { PreciosTemporalesEntity } from "./precios_temporales.Entity";
 
 @Entity("asientos")
 @Unique(["cod_vuelo"])
 
-export class Asiento {
+export class AsientoEntity {
 
   @PrimaryGeneratedColumn()
   id_asientos : number = 0;
 
-  @ManyToOne(() => Vuelo)
+  @ManyToOne(() => VueloEntity)
   @JoinColumn({ name: "cod_vuelo" })
-  cod_vuelo!: Vuelo;
+  cod_vuelo!: VueloEntity;
 
   @Column()
   id_categoria?: number;
@@ -26,7 +26,8 @@ export class Asiento {
   @Column()
   id_precio_temporal?: string;
 
-  @ManyToOne(() => PreciosTemporales)
+  @ManyToOne(() => PreciosTemporalesEntity)
   @JoinColumn({ name: "id_precio_temporal" })
-  precio_temporal?: PreciosTemporales;
+  precio_temporal?: PreciosTemporalesEntity;
+  
 }

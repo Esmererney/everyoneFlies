@@ -1,21 +1,26 @@
 import Express from "express";
 
-import { routes } from "./src/Infrastructure/routes/routes.index";
-import middleware404 from "./src/Infrastructure/middleware/middleware";
 import { AppDataSourcePgs } from "./src/Infrastructure/db/source.orm.pgs";
+import { routes } from "./src/Infrastructure/api-rest/routes/routes.index";
+import { AppDataSourceMysql } from "./src/Infrastructure/db/source.orm";
+import middleware404 from "./src/Infrastructure/api-rest/middleware/middleware";
 
 const createServer = async () => {
   try {
 
     console.log("Entorno:", process.env.NODE_ENV);
 
-    AppDataSourcePgs.initialize()
-      .then(() => {
+    AppDataSourcePgs.initialize().then(() => {
         console.log("Conexión exitosa");
-      })
-      .catch((err) => {
+      }).catch((err) => {
         console.error("Error en la conexión", err);
       });
+
+      //AppDataSourceMysql.initialize().then(() => {
+      //     console.log("Conexión exitosa");
+      //   }).catch((err) => {
+      //     console.error("Error en la conexión", err);
+      // });
 
     console.log("Datasource inicializado");
 
@@ -38,5 +43,7 @@ const createServer = async () => {
     console.error(error);
     console.error(`Error al iniciar el servidor web: ${error}`);
    }
+
 };
+
 createServer();

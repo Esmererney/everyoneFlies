@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
 
 @Entity("precios_temporales")
-export class PreciosTemporales  {
+export class PreciosTemporalesEntity  {
 
   @PrimaryGeneratedColumn()
-  id: number = 0
+  id_temporada: number = 0;
 
   @Column()
   temporada?: string;

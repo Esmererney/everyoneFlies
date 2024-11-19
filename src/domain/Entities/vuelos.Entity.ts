@@ -2,13 +2,13 @@ import { Entity, Column, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity("vuelos")
 @Unique(["cod_vuelo"])
-export class Vuelo {
+export class VueloEntity {
   
   @PrimaryGeneratedColumn()
-  id_vuelo : number = 0 ; 
+  id_vuelo : number = 0 ;
 
   @Column()
-  cod_vuelo!: string;
+  cod_vuelo?: string;
 
   @Column()
   aerolinea?: string;
@@ -26,7 +26,7 @@ export class Vuelo {
   fecha_llegada?: Date;
 
   @Column()
-  duracion?: number;
+    duracion?: number;
 
   @Column()
     total_asientos?: number;
@@ -36,4 +36,5 @@ export class Vuelo {
 
   @Column()
     estado_vuelo?: string;
+
 }

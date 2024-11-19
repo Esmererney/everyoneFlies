@@ -3,7 +3,7 @@
 
 config --> development.json  -- / no me coje la varible de entorno 
 
-// credenciales para pruebas 
+// credenciales para pruebas --> postgres
 {
   "HOST": "dpg-csqd3pl6l47c73b29lrg-a.oregon-postgres.render.com",
   "USER": "root",
@@ -12,7 +12,7 @@ config --> development.json  -- / no me coje la varible de entorno
   "SSL": true
 }
 
-// credenciales de produccion 
+// credenciales de produccion -->postgres
 
 {
     "HOST": "dpg-csn2932j1k6c73dqmovg-a.oregon-postgres.render.com",
@@ -21,3 +21,13 @@ config --> development.json  -- / no me coje la varible de entorno
     "DATABASE": "aerolinea_wdz4",
     "SSL": true
 }
+
+// en  --> mysql
+{
+    "HOST": "localhost",
+    "USER": "root",
+    "PASSWORD": "Mendoza1026+", 
+    "DATABASE": "everyoneflies",
+    "SSL": true
+}
+

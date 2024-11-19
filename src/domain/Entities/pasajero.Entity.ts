@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('pasajeros') // Nombre de la tabla en la base de datos
-export class Pasajero {
+export class PasajeroEntity {
   
   @PrimaryGeneratedColumn()
     id_pasajero :  number = 0

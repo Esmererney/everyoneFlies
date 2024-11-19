@@ -1,32 +1,32 @@
-import { Vuelo } from "../domain/interfaces/vuelos.modelo";
-import { vueloRepositori } from "../Infrastructure/repository/vuelo.Repositori";
+import { VueloEntity } from "../domain/Entities/vuelos.Entity";
+import { vueloRep } from "../Infrastructure/repository/vuelo.Repositori";
 
 export class VueloController {
 
-  private repository: vueloRepositori ;
+  private repository: vueloRep ;
 
   constructor() {
-    this.repository = new vueloRepositori();
+    this.repository = new vueloRep();
   }
 
-  async agregar( vuelo : Vuelo ) { 
-    const result  =  await this.repository.agregarVuelo(vuelo);
+  async agregar( vuelo : VueloEntity ) { 
+    const result  =  await this.repository.crear(vuelo);
     if (result  != null) {
-        return { ok: true, id: result.id_vuelo };
+        return { ok: true, Resultado: result };
       } else {
-        return { ok: false, messaje : "Error en envio // el codigo de Vuelo esta en uso" };
+        return { ok: false, messaje : "Error en envio " };
       }   
   }
     
   
   async obtener() {
-    const result = await this.repository.obtenerVuelo();
+    const result = await this.repository.obtenerTodos();
     return result ;
   }
 
 
-  async actualizar(vuelo : Vuelo) {
-    const result  =  await this.repository.actualizarVuelo(vuelo);
+  async actualizar(vuelo : VueloEntity) {
+    const result  =  await this.repository.actualizar(vuelo);
     if (result  != null) {
       return { ok: true, id: result };
     } else {
@@ -36,7 +36,7 @@ export class VueloController {
 
   async obtenerPorId(id: number) {
     try {
-      const result = await this.repository.obtenerVueloPorId(id);
+      const result = await this.repository.obtenerPorId(id);
       if (result) {
         return result
       } else {
@@ -49,7 +49,7 @@ export class VueloController {
   }
 
   async eliminar(id: number) {
-    const result = await this.repository.eliminarVuelo(id);
+    const result = await this.repository.eliminar(id);
     return  result
   }
   

@@ -1,45 +1,51 @@
-import { Vuelo } from "../../domain/interfaces/vuelos.modelo";
+import { Repository } from "typeorm";
+import { VueloEntity as VueloEntity } from "../../domain/Entities/vuelos.Entity";
+import { curd } from "./crud.interfaz";
 import { AppDataSourcePgs } from "../db/source.orm.pgs";
 
-export class vueloRepositori {
-
-  private vueloRepo = AppDataSourcePgs.getRepository(Vuelo);
-
+export class vueloRep implements curd {
   
-  async obtenerVuelo() {
-    return this.vueloRepo.find(); // obtener todos los datos
+  private repositoryPgs: Repository<VueloEntity>;
+
+  constructor() {
+    this.repositoryPgs = AppDataSourcePgs.getRepository(VueloEntity);
   }
 
-  async  obtenerVueloPorId(idVuelo : number) {
-    const vuelo = await this.vueloRepo.findOneBy( { id_vuelo : idVuelo } );
-    return vuelo != null ?  vuelo : null; 
+  obtenerTodos(){
+    return this.repositoryPgs.find();
   }
 
-  async agregarVuelo(datos: Vuelo) {
-    const vuelo = this.vueloRepo.create(datos);
-    const vueloExistente = await this.vueloRepo.findOneBy({ cod_vuelo : datos.cod_vuelo });
+  async obtenerPorId(id: number) {
+    const vuelo = await this.repositoryPgs.findOneBy({ id_vuelo: id });
+    return vuelo != null ? vuelo : null;
+  }
+
+  async crear(datos: VueloEntity) {
+    const vuelo = this.repositoryPgs.create(datos);
+    const vueloExistente = await this.repositoryPgs.findOneBy({
+      cod_vuelo: datos.cod_vuelo,
+    });
     if (vueloExistente) {
-      return null;  // Retorna null si el código ya está en uso
-    }else{
-      return this.vueloRepo.save(vuelo);
+      return "Le vuelo ya existe"; // Retorna null si el código ya está en uso
+    } else {
+      return this.repositoryPgs.insert(vuelo);
+      // return this.repositoryPgs.save(vuelo);
     }
-
   }
 
-  async actualizarVuelo(datos: Vuelo) { 
-
-    const result = await this.vueloRepo.update( datos.id_vuelo  , { 
-        cod_vuelo: datos.cod_vuelo,
-        aerolinea: datos.aerolinea,
-        origen_aeropuerto: datos.origen_aeropuerto,
-        destino_aeropuerto: datos.destino_aeropuerto,
-        fecha_salida: datos.fecha_salida,
-        fecha_llegada: datos.fecha_llegada,
-        duracion: datos.duracion,
-        total_asientos: datos.total_asientos,
-        asientos_disponibles: datos.asientos_disponibles,
-        estado_vuelo: datos.estado_vuelo,
-      });
+  async actualizar(datos: VueloEntity) {
+    const result = await this.repositoryPgs.update( datos.id_vuelo  , { 
+      cod_vuelo: datos.cod_vuelo,
+      aerolinea: datos.aerolinea,
+      origen_aeropuerto: datos.origen_aeropuerto,
+      destino_aeropuerto: datos.destino_aeropuerto,
+      fecha_salida: datos.fecha_salida,
+      fecha_llegada: datos.fecha_llegada,
+      duracion: datos.duracion,
+      total_asientos: datos.total_asientos,
+      asientos_disponibles: datos.asientos_disponibles,
+      estado_vuelo: datos.estado_vuelo,
+    });
 
     if (result.affected && result.affected > 0) {
       return result;
@@ -48,17 +54,15 @@ export class vueloRepositori {
     }
   }
 
-  async eliminarVuelo(idVuelo: number) {
-
-    const vuelo = await this.vueloRepo.findOneBy({ id_vuelo : idVuelo });
+  async eliminar(id: number) {
+    const vuelo = await this.repositoryPgs.findOneBy({ id_vuelo : id });
     if (vuelo) {
-      await this.vueloRepo.remove(vuelo);
+      await this.repositoryPgs.remove(vuelo);
       return vuelo;
     } else {
-      console.log('Cliente no encontrado');
+      console.log('Vuelo no encontrado');
       return null;
     }
-     
   }
 
 }

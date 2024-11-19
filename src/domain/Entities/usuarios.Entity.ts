@@ -1,17 +1,17 @@
 import { Entity, PrimaryColumn, Column, BaseEntity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("usuarios") 
-export class Usuario  {
+@Entity("Usuario") 
+export class UsuarioEntity  {
 
   @PrimaryGeneratedColumn()
-    id_vuelo : number = 0
+    id_user : number = 0
 
   @PrimaryColumn()
-    correo?: string; 
+    email?: string; 
 
   @Column()
-    contraseña?: string; 
+    password?: string; 
 
   @Column()
-    rol?: string; 
+    role?: string; 
 }
