@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne } from "typeorm"
 import { pasajeroReservaEntity } from "./pasajero_reserva.entity"
+import { TicketsEntity } from "./tickets.entity"
 
 @Entity("pasajero")
 export class PasajeroEntity {
@@ -26,6 +27,9 @@ export class PasajeroEntity {
 
     @OneToMany(() => pasajeroReservaEntity, (reserva) => reserva.pasajero)
     reservas?: pasajeroReservaEntity; 
+    
+    @OneToOne(() => TicketsEntity, (ticket) => ticket.pasajero)
+    ticket?: TicketsEntity; 
 
     constructor(body: {
         nombre: string;

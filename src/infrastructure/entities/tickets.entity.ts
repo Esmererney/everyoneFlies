@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, Unique, ManyToOne, OneToOne, JoinColumn,  CreateDateColumn } from "typeorm";
 import { ReservaEntity} from "./reserva.entity";
+import { PasajeroEntity} from "./pasajero.entity";
 
 @Entity("tickets")
 export class TicketsEntity {
@@ -17,11 +18,11 @@ export class TicketsEntity {
   @JoinColumn({ name: "id_reserva" })
   reserva?: ReservaEntity;
 
-  @OneToOne(() => Vuelo, (vuelo) => vuelo.cod_vuelo)
-  @JoinColumn({ name: "cod_vuelo" })
-  vuelo: Vuelo;
+  // @OneToOne(() => Vuelo, (vuelo) => vuelo.cod_vuelo)
+  // @JoinColumn({ name: "cod_vuelo" })
+  // vuelo: Vuelo;
 
-  @OneToOne(() => Pasajero, (pasajero) => pasajero.id_pasajero,)
+  @OneToOne(() => PasajeroEntity, (pasajero) => pasajero.id_pasajero,)
   @JoinColumn({ name: "id_pasajero" })
-  pasajero: Pasajero;
+  pasajero?: PasajeroEntity;
 }

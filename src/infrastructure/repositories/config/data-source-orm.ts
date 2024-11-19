@@ -4,6 +4,8 @@ import { PasajeroEntity } from "../../entities/pasajero.entity"
 import { pasajeroReservaEntity } from "../../entities/pasajero_reserva.entity"
 // import { Asiento } from "../../entities/asiento.model"
 // import { Categoria } from "../../entities/categoria.model"
+import { ReservaEntity } from "../../entities/reserva.entity"
+import { TicketsEntity } from "../../entities/tickets.entity";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions"
 import { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOptions"
 
@@ -14,7 +16,7 @@ const common: any = {
     password: config.get('PASSWORD') || '',
     database: config.get('DATABASE'),
     synchronize: true, // NOTA: Si esta 
-    entities: [PasajeroEntity, pasajeroReservaEntity], // NOTA: Registrar cada entidad "tabla"
+    entities: [PasajeroEntity, pasajeroReservaEntity, ReservaEntity, TicketsEntity], // NOTA: Registrar cada entidad "tabla"
 }
 const postgresConfig: PostgresConnectionOptions = {
     type: "postgres",
