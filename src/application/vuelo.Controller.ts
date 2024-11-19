@@ -1,4 +1,4 @@
-import { VueloEntity } from "../infrastructure/entities/vuelos.Entity";
+import { VueloEntity } from "../infrastructure/entities/vuelos.entity";
 import { vueloRep } from "../infrastructure/repositories/vuelo.repository";
 
 export class VueloController {

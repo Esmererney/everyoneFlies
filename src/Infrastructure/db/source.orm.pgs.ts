@@ -1,7 +1,7 @@
 
 import config  from "config"
 import { DataSource } from "typeorm";
-import { VueloEntity } from "../entities/vuelos.Entity";
+import { VueloEntity } from "../entities/vuelos.entity";
 import { PasajeroEntity } from "../entities/pasajero.entity";
 import { AsientoEntity } from "../entities/asientos.entity";
 import { UsuarioEntity } from "../entities/usuarios.entity";

@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany  } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany, ManyToOne } from "typeorm";
+import { TicketsEntity } from "./tickets.entity";
 
 @Entity("vuelos")
 @Unique(["cod_vuelo"])
@@ -39,5 +40,12 @@ export class VueloEntity {
 
   // @OneToMany(() => Asiento, (asiento) => asiento.asientos)
   // asientos: AsientoEntity = {} as Asiento;
+
+  // @ManyToOne(() => VueloEntity, (vuelo) => vuelo.id_vuelo)
+  // @Column({ name: "cod_vuelo" })
+  // vuelo?: VueloEntity;
+
+  // @OneToMany(() => TicketsEntity, (ticket) => ticket.vuelo)
+  // tickets!: TicketsEntity[];
   
 }
