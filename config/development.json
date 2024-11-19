@@ -1,7 +1,10 @@
 {
-  "HOST": "dpg-csqd3pl6l47c73b29lrg-a.oregon-postgres.render.com",
+  "HOST": "localhost",
+  "PORT": 3306,
   "USER": "root",
-  "PASSWORD": "Qb29z8VKKLXZ3MFDrK456rZXHleeLgEt", 
-  "DATABASE": "aerolinea_605z",
-  "SSL": true
+  "DB_TYPE": "mysql",
+  "DATABASE": "aerolinea",
+  "PASSWORD": "1036957981"
+  
+
 }

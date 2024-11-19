@@ -1,15 +1,15 @@
 import Express from "express";
 
-import { routes } from "./src/Infrastructure/routes/routes.index";
-import middleware404 from "./src/Infrastructure/middleware/middleware";
-import { AppDataSourcePgs } from "./src/Infrastructure/db/source.orm.pgs";
+import { Routes } from "./src/infrastructure/modules/api-rest/routes/index.router";  
+import middleware404 from "./src/infrastructure/modules/api-rest/middleware/middleware-404"
+import { AppDataSource } from "./src/infrastructure/repository/config/data-source-orm";
 
 const createServer = async () => {
   try {
 
     console.log("Entorno:", process.env.NODE_ENV);
 
-    AppDataSourcePgs.initialize()
+    AppDataSource.initialize()
       .then(() => {
         console.log("Conexión exitosa");
       })
@@ -26,7 +26,7 @@ const createServer = async () => {
       res.send({ message: "Bienvenido a la API " });
     });
 
-    app.use("/api/v1", routes());
+    app.use("/api/v1", Routes());
     app.use(middleware404);
 
     const PORT = process.env.PORT || 3000;
