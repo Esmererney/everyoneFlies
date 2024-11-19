@@ -1,5 +1,5 @@
 import { TicketsEntity } from "../entities/tickets.entity";
-import { AppDataSource } from "./config/data-source-orm";
+import { AppDataSource } from "../repository/config/data-source-orm";
 import{Repository} from "typeorm"
 export class TicketsRepository {
   repository: Repository<TicketsEntity>;

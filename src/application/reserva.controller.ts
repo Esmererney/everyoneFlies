@@ -1,5 +1,5 @@
 import { ReservaEntity } from "../infrastructure/entities/reserva.entity";
-import { ReservaRepository } from "../infrastructure/repository/reserva.repository";
+import { ReservaRepository } from "../infrastructure/repositories/reserva.repository";
 
 export class ReservaController {
 
