@@ -1,13 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { Asiento } from "./asientos.modelo";
 import { AsientoEntity } from "./asientos.Entity";
 
 @Entity("categorias")
-export class Categoria {
+export class CategoriaEntity {
 
   @PrimaryGeneratedColumn()
-  id_categoria?: number;
-
+  id_categoria : number=  0;
+  
   @Column()
   nombre_categoria?: string;
 
@@ -15,7 +14,7 @@ export class Categoria {
   precio_base?: number;
 
 
-  @OneToMany(() => Asiento, (asiento) => asiento.categoria)
+  @OneToMany(() => AsientoEntity, (asiento) => asiento.categoria)
   //asientos: Asiento[]; // Cambiado a un array de Asiento
   asientos?: AsientoEntity; // revisar
 

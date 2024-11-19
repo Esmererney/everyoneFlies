@@ -6,6 +6,7 @@ import { PasajeroEntity } from "../../domain/Entities/pasajero.Entity";
 import { AsientoEntity } from "../../domain/Entities/asientos.Entity";
 import { UsuarioEntity } from "../../domain/Entities/usuarios.Entity";
 import { PreciosTemporalesEntity } from "../../domain/Entities/precios_temporales.Entity";
+import { CategoriaEntity } from "../../domain/Entities/categorias.Entity";
 
 const dbSSL = config.get<boolean>("SSL");
 
@@ -17,6 +18,12 @@ export const AppDataSourcePgs = new DataSource({
   password: config.get<string>("PASSWORD"),
   database: config.get<string>("DATABASE"),
   ssl: dbSSL ? { rejectUnauthorized: false } : false,
-  entities: [VueloEntity , PasajeroEntity , AsientoEntity ,UsuarioEntity , PreciosTemporalesEntity],
+  entities: [VueloEntity ,
+     PasajeroEntity ,
+     AsientoEntity ,
+     UsuarioEntity , 
+     PreciosTemporalesEntity, 
+     CategoriaEntity,
+    ],
   synchronize: true,
 });

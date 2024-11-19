@@ -1,4 +1,4 @@
-import { Categoria } from "../domain/interfaces/categorias.modelo";
+import { CategoriaEntity } from "../domain/Entities/categorias.Entity";
 import { CategoriaRepository } from "../Infrastructure/repository/categoria.repository";
 
 export class CategoriaController {
@@ -10,10 +10,10 @@ export class CategoriaController {
   }
 
   // Agregar una nueva categoría
-  async agregar(categoria: Categoria) {
+  async agregar(categoria: CategoriaEntity) {
     const result = await this.repository.agregarCategoria(categoria);
     if (result != null) {
-      return { ok: true, id: result.id_categoria };
+      return { ok: true, id: result };
     } else {
       return { ok: false, mensaje: "Error: el nombre de la categoría ya está en uso." };
     }
@@ -41,7 +41,7 @@ export class CategoriaController {
   }
 
   // Actualizar una categoría existente
-  async actualizar(categoria: Categoria) {
+  async actualizar(categoria: CategoriaEntity) {
     const result = await this.repository.actualizarCategoria(categoria);
     if (result != null) {
       return { ok: true, id: categoria.id_categoria };

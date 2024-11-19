@@ -1,4 +1,4 @@
-import { Asiento } from "../domain/interfaces/asientos.modelo";
+import { AsientoEntity } from "../domain/Entities/asientos.Entity";
 import { AsientoRepository } from "../Infrastructure/repository/asiento.repository";
 
 export class AsientoController {
@@ -9,7 +9,7 @@ export class AsientoController {
     this.repository = new AsientoRepository();
   }
 
-  async agregar(asiento: Asiento) {
+  async agregar(asiento: AsientoEntity) {
     const result = await this.repository.agregarAsiento(asiento);
     if (result != null) {
       return { ok: true, id: result.id_asiento };
@@ -37,7 +37,7 @@ export class AsientoController {
     }
   }
 
-  async actualizar(asiento: Asiento) {
+  async actualizar(asiento: AsientoEntity) {
     const result = await this.repository.actualizarAsiento(asiento);
     if (result != null) {
       return { ok: true, id: result };

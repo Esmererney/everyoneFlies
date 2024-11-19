@@ -1,5 +1,5 @@
 import Express from "express";
-import { AsientoController } from "../../application/asiento.controller";
+import { AsientoController } from "../../../application/asiento.controller";
 
 export const RutasAsiento = () => {
   

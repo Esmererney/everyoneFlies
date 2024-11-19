@@ -1,9 +1,9 @@
-import { Asiento } from "../../domain/interfaces/asientos.modelo"; // Asegúrate de que la ruta sea correcta
+import { AsientoEntity } from "../../domain/Entities/asientos.Entity";
 import { AppDataSourcePgs } from "../db/source.orm.pgs";
 
 export class AsientoRepository {
 
-  private asientoRepo = AppDataSourcePgs.getRepository(Asiento);
+  private asientoRepo = AppDataSourcePgs.getRepository(AsientoEntity);
 
   // Obtener todos los asientos
   async obtenerAsientos() {
@@ -17,7 +17,7 @@ export class AsientoRepository {
   }
 
   // Agregar un nuevo asiento
-  async agregarAsiento(datos: Asiento) {
+  async agregarAsiento(datos: AsientoEntity) {
     const asiento = this.asientoRepo.create(datos);
     const asientoExistente = await this.asientoRepo.findOneBy({ cod_vuelo: datos.cod_vuelo, numero_asiento: datos.numero_asiento });
     if (asientoExistente) {
@@ -28,7 +28,7 @@ export class AsientoRepository {
   }
 
   // Actualizar un asiento existente
-  async actualizarAsiento(datos: Asiento) {
+  async actualizarAsiento(datos: AsientoEntity) {
     const result = await this.asientoRepo.update(datos.id_asiento, {
       vuelo: { cod_vuelo: datos.cod_vuelo}, 
       id_categoria: datos.id_categoria,

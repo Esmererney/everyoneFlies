@@ -1,9 +1,9 @@
-import { Categoria } from "../../domain/interfaces/categorias.modelo"; 
+import { CategoriaEntity } from "../../domain/Entities/categorias.Entity";
 import { AppDataSourcePgs } from "../db/source.orm.pgs";
 
 export class CategoriaRepository {
 
-  private categoriaRepo = AppDataSourcePgs.getRepository(Categoria);
+  private categoriaRepo = AppDataSourcePgs.getRepository(CategoriaEntity);
 
   // Obtener todas las categorías
   async obtenerCategorias() {
@@ -17,7 +17,7 @@ export class CategoriaRepository {
   }
 
   // Agregar una nueva categoría
-  async agregarCategoria(datos: Categoria) {
+  async agregarCategoria(datos: CategoriaEntity) {
     const categoria = this.categoriaRepo.create(datos);
     const categoriaExistente = await this.categoriaRepo.findOneBy({ nombre_categoria: datos.nombre_categoria });
     if (categoriaExistente) {
@@ -28,7 +28,7 @@ export class CategoriaRepository {
   }
 
   // Actualizar una categoría existente
-  async actualizarCategoria(datos: Categoria) {
+  async actualizarCategoria(datos: CategoriaEntity) {
     const result = await this.categoriaRepo.update(datos.id_categoria, {
       nombre_categoria: datos.nombre_categoria,
       precio_base: datos.precio_base,

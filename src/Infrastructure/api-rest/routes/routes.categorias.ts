@@ -1,5 +1,5 @@
 import Express from "express";
-import { CategoriaController } from "../../application/categoria.controller";
+import { CategoriaController } from "../../../application/categoria.controller";
 
 export const RutasCategoria = () => {
   
