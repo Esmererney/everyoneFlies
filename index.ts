@@ -1,5 +1,5 @@
 import Express from "express";
-import middleware404 from "./src/infrastructure/modules/api-rest/middleware/middleware";
+import middleware404 from "./src/infrastructure/modules/api-rest/middleware/middleware-404";
 import { AppDataSource } from "./src/infrastructure/repositories/config/data-source-orm";
 import { routes } from "./src/infrastructure/modules/api-rest/routers/index.router";
 
