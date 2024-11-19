@@ -1,3 +1,5 @@
+// import { AppDataSourcePgs } from "./src/Infrastructure/db/source.orm.pgs";
+// import { AppDataSourceMysql } from "./src/Infrastructure/db/source.orm";
 import Express from "express";
 import middleware404 from "./src/infrastructure/modules/api-rest/middleware/middleware-404";
 import { AppDataSource } from "./src/infrastructure/repositories/config/data-source-orm";
@@ -37,5 +39,4 @@ const createServer = async () => {
         console.error(`Error al iniciar el servidor web: ${error}`);
     }
 }
-
 createServer();
