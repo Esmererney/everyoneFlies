@@ -1,4 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany  } from "typeorm";
+import { Asiento } from "./asientos.modelo";
+
+
 
 @Entity("vuelos")
 @Unique(["cod_vuelo"])
@@ -37,4 +40,7 @@ export class VueloEntity {
   @Column()
     estado_vuelo?: string;
 
+  @OneToMany(() => Asiento, (asiento) => asiento.vuelo)
+  asientos: Asiento = {} as Asiento;
+  
 }

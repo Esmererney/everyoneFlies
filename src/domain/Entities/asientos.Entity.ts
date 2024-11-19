@@ -1,33 +1,43 @@
-import {Entity,PrimaryGeneratedColumn,Column,Unique,ManyToOne, JoinColumn,} from "typeorm";
-import { VueloEntity } from "./vuelos.Entity";
-import { PreciosTemporalesEntity } from "./precios_temporales.Entity";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import { Vuelo } from "./vuelos.modelo";
+import { Categoria } from "./categorias.modelo";
+import { PreciosTemporales } from "./precios_temporales.modelo";
+
 
 @Entity("asientos")
-@Unique(["cod_vuelo"])
-
-export class AsientoEntity {
+export class Asiento {
 
   @PrimaryGeneratedColumn()
-  id_asientos : number = 0;
+  id_asiento?: number;
 
-  @ManyToOne(() => VueloEntity)
-  @JoinColumn({ name: "cod_vuelo" })
-  cod_vuelo!: VueloEntity;
-
+  // Clave foránea que conecta cada asiento con un vuelo específico usando id_vuelo
   @Column()
-  id_categoria?: number;
+  cod_vuelo?: string; 
 
-  @Column({ default: true })
+  // Relación ManyToOne con Vuelo
+  @ManyToOne(() => Vuelo, (vuelo) => vuelo.asientos)
+  @JoinColumn({ name: "cod_vuelo", referencedColumnName: "cod_vuelo" }) // Usamos cod_vuelo como clave foránea
+  vuelo?: Vuelo;
+
+  // Indica si el asiento está disponible
+  @Column({ type: "boolean", default: true })
   disponible?: boolean;
 
+  // Número de asiento
   @Column()
   numero_asiento?: string;
 
+  // Clave foránea que conecta con la tabla PrecioTemporal
   @Column()
-  id_precio_temporal?: string;
+  id_precio_temporal?: number;
 
   @ManyToOne(() => PreciosTemporalesEntity)
   @JoinColumn({ name: "id_precio_temporal" })
   precio_temporal?: PreciosTemporalesEntity;
   
+  // // Clave foránea que conecta con la tabla Categoria
+  @ManyToOne(() => Categoria, (categoria) => categoria.asientos)
+  @JoinColumn({ name: "id_categoria" }) // Relación con la columna id_categoria de Categoria
+  categoria?: Categoria; //revisar
+
 }
