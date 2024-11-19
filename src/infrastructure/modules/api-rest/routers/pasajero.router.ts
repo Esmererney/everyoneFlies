@@ -13,6 +13,7 @@ export const PasajeroRouter = () => {
     pasajeroCtrl
       .agregar(payload)
       .then((result) => {
+        
         const status = result.ok === true ? 200 : 400;
         res.status(status).send(result);
       })
@@ -20,6 +21,59 @@ export const PasajeroRouter = () => {
         res.status(500).send(error);
       });
   });
+
+  router.get("/pasajero", (req, res) => {
+    const id = req.query.id
+    pasajeroCtrl
+      .obtenerPorId(Number(id))
+      .then((result) => {
+        const status = result.ok === true ? 200 : 404;
+        res.status(status).send(result);
+      })
+      .catch((error) => {
+        res.status(500).send(error);
+      });
+  });
+
+  router.get("/pasajeros", (req, res) => {
+    pasajeroCtrl
+      .obtener()
+      .then((result) => {
+        const status = result.ok === true ? 200 : 400;
+        res.status(status).send(result);
+      })
+      .catch((error) => {
+        res.status(500).send(error);
+      });
+  });
+
+  router.patch("/pasajero", (req, res) => {
+    const payload = req.body;
+    pasajeroCtrl
+      .actualizar(payload)
+      .then((result) => {
+        const status = result.ok === true ? 200 : 400;
+        res.status(status).send(result);
+      })
+      .catch((error) => {
+        res.status(500).send(error);
+      });
+  });
+
+  router.get("/pasajero/buscar", (req, res) => {
+    const payload = req.body;
+    pasajeroCtrl
+      .obtenerPorCriterio(payload)
+      .then((result) => {
+        const status = result.ok === true ? 200 : 400;
+        res.status(status).send(result);
+      })
+      .catch((error) => {
+        res.status(500).send(error);
+      });
+  });
+
+
 
   return router
 }

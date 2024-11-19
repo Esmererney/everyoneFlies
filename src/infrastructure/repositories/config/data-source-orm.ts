@@ -1,6 +1,9 @@
 import config from "config"
 import { DataSource } from "typeorm"
-// import { VueloEntity } from "../../entities/vuelo.entity"
+import { PasajeroEntity } from "../../entities/pasajero.entity"
+import { pasajeroReservaEntity } from "../../entities/pasajero_reserva.entity"
+// import { Asiento } from "../../entities/asiento.model"
+// import { Categoria } from "../../entities/categoria.model"
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions"
 import { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOptions"
 
@@ -10,8 +13,8 @@ const common: any = {
     username: config.get('USER'),
     password: config.get('PASSWORD') || '',
     database: config.get('DATABASE'),
-    // synchronize: true, // NOTA: Si esta 
-    // entities: [VueloEntity], // NOTA: Registrar cada entidad "tabla"
+    synchronize: true, // NOTA: Si esta 
+    entities: [PasajeroEntity, pasajeroReservaEntity], // NOTA: Registrar cada entidad "tabla"
 }
 const postgresConfig: PostgresConnectionOptions = {
     type: "postgres",

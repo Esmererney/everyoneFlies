@@ -14,7 +14,13 @@ export class PasajeroRepository {
     }
 
     obtener(){
-        return this.repository.find()
+        return this.repository.find({
+            select: {
+                id_pasajero: true,
+                nombre: true,
+                email: true,
+            }
+        })
     }
     
     obtenerPorCriterio(nombre: string, email: string){
@@ -31,7 +37,7 @@ export class PasajeroRepository {
     }
 
     actualizar(usuario: PasajeroEntity) {
-        return this.repository.update(usuario.id_pasajero, {
+        return this.repository.update({ id_pasaporte: usuario.id_pasaporte}, {
             nombre: usuario.nombre,
             apellido: usuario.apellido,
             email: usuario.email,
@@ -42,7 +48,7 @@ export class PasajeroRepository {
 
 
     obtenerPorId(id_pasajero: number){
-        return this.repository.find({
+        return this.repository.findOne({
             where: {
                 id_pasajero: id_pasajero
             }

@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm"
+import { pasajeroReservaEntity } from "./pasajero_reserva.entity"
 
 @Entity("pasajero")
 export class PasajeroEntity {
@@ -15,21 +16,24 @@ export class PasajeroEntity {
     email: string
 
     @Column()
-    telefono: number
+    telefono: string
 
     @Column()
     nacionalidad: string
     
     @Column()
-    id_pasaporte: number
+    id_pasaporte: string
+
+    @OneToMany(() => pasajeroReservaEntity, (reserva) => reserva.pasajero)
+    reservas?: pasajeroReservaEntity; 
 
     constructor(body: {
         nombre: string;
         apellido: string;
         email: string;
-        telefono: number;
+        telefono: string;
         nacionalidad: string; 
-        id_pasaporte: number; 
+        id_pasaporte: string; 
     }) {
         this.nombre = body?.nombre;
         this.apellido = body?.apellido;

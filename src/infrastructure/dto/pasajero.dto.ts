@@ -11,24 +11,22 @@ export class PasajeroDto {
     email: string;
 
     @IsInt()
-    @Min(0)
-    @Max(10)
-    telefono: number;
+    telefono: string;
 
     @IsString()
     nacionalidad: string;
 
     @IsInt()
-    id_pasaporte: number;
+    id_pasaporte: string;
 
 
     constructor(body: {
         nombre: string;
         apellido: string;
         email: string;
-        telefono: number;
+        telefono: string;
         nacionalidad: string; 
-        id_pasaporte: number;
+        id_pasaporte: string;
     }) {
         this.nombre = body?.nombre;
         this.apellido = body?.apellido;
