@@ -30,7 +30,7 @@ export class AsientoEntity {
   @Column()
   id_precio_temporal?: number;
 
-  @ManyToOne(() => PreciosTemporalesEntity)
+  @ManyToOne(() => PreciosTemporalesEntity, (precios_temporales) => precios_temporales.id_temporada)
   @JoinColumn({ name: "id_precio_temporal" })
   precio_temporal?: PreciosTemporalesEntity;
   
