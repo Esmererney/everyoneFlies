@@ -2,7 +2,7 @@ import { pasajeroReservaDto } from "../infrastructure/dto/pasajero_reserva.dto";
 import { pasajeroReservaEntity } from "../infrastructure/entities/pasajero_reserva.entity";
 import { PasajeroReservaRepository } from "../infrastructure/repositories/pasajero_reserva.repository";
 
-export class PasajeroController {
+export class PasajeroReservaController {
     private repository: PasajeroReservaRepository
 
     constructor() {
@@ -18,10 +18,10 @@ export class PasajeroController {
         return { ok: true }
     }
 
-    async agregar() {
+    async agregar(body: {id_asiento: number, id_reserva: number, id_pasajero: number}) {
         try {
-            
-        } catch (error: any) {
+            const validarBody = await this.validarBody(body)
+        } catch (error) {
         }
     }
 

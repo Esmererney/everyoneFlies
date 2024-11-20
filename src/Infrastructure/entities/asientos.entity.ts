@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 import { CategoriaEntity } from "./categorias.entity";
 import { VueloEntity } from "./vuelos.entity";
 import { PreciosTemporalesEntity } from "./precios_temporales.entity";
+import { PasajeroEntity } from "./pasajero.entity";
 
 @Entity("asientos")
 export class AsientoEntity {
@@ -40,5 +41,4 @@ export class AsientoEntity {
   categoria?: CategoriaEntity  ; //revisar
 
   id_categoria?: number;
-
 }
