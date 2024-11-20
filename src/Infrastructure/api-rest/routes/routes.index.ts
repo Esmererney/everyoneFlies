@@ -2,6 +2,7 @@ import Express from "express";
 import { RutasVuelo } from "./routes.vuelos";
 import { RutasAsiento } from "./routes.asientos";
 import { RutasCategoria } from "./routes.categorias";
+import { RutasPreciosTemporales } from "./routes.precios_temporales";
 
 export const routes = () => {
   const router = Express.Router();
@@ -12,7 +13,7 @@ export const routes = () => {
   router.use(RutasVuelo());
   router.use(RutasAsiento());
   router.use(RutasCategoria());
-  // router.use(RutasVuelo());
+  router.use(RutasPreciosTemporales());
 
   return router;
 };

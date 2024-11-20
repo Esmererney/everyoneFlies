@@ -31,7 +31,7 @@ export class AsientoRepository {
   async actualizarAsiento(datos: AsientoEntity) {
     const result = await this.asientoRepo.update(datos.id_asiento, {
       vuelo: { cod_vuelo: datos.cod_vuelo}, 
-      id_categoria: datos.id_categoria,
+      id_categoria_asiento: datos.id_categoria_asiento,
       disponible: datos.disponible,
       numero_asiento: datos.numero_asiento,
       id_precio_temporal: datos.id_precio_temporal,
