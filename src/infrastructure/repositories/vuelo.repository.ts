@@ -3,7 +3,7 @@ import { VueloEntity as VueloEntity } from "../entities/vuelos.entity";
 import { curd } from "./crud.interfaz";
 import { AppDataSourcePgs } from "../db/source.orm.pgs";
 
-export class vueloRep implements curd {
+export class vueloRepository implements curd {
   
   private repositoryPgs: Repository<VueloEntity>;
 

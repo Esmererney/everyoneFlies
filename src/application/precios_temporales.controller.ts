@@ -1,30 +1,33 @@
-import { VueloEntity } from "../infrastructure/entities/vuelos.entity";
+import { PreciosTemporalesEntity } from "../infrastructure/entities/precios_temporales.entity";
+import { PrecioTemporalesRepository } from "../infrastructure/repositories/precio_temporales.repository";
 import { vueloRepository } from "../infrastructure/repositories/vuelo.repository";
 
-export class VueloController {
+export class PreciosTemporalesController {
 
-  private repository: vueloRepository ;
+  private repository: PrecioTemporalesRepository ;
 
   constructor() {
-    this.repository = new vueloRepository();
+    this.repository = new PrecioTemporalesRepository();
   }
 
-  async agregar( vuelo : VueloEntity ) { 
-    const result  =  await this.repository.crear(vuelo);
+  async agregar( PrecioTemporales : PreciosTemporalesEntity ) { 
+    const result  =  await this.repository.crear(PrecioTemporales);
     if (result  != null) {
         return { ok: true, Resultado: result };
       } else {
         return { ok: false, messaje : "Error en envio " };
       }   
   }
+    
   
   async obtener() {
     const result = await this.repository.obtenerTodos();
     return result ;
   }
 
-  async actualizar(vuelo : VueloEntity) {
-    const result  =  await this.repository.actualizar(vuelo);
+
+  async actualizar(PrecioTemporales : PreciosTemporalesEntity) {
+    const result  =  await this.repository.actualizar(PrecioTemporales);
     if (result  != null) {
       return { ok: true, id: result };
     } else {
@@ -38,7 +41,7 @@ export class VueloController {
       if (result) {
         return result
       } else {
-        return "El ID del vuelo no esta : no se encuentra en la base de datos";
+        return "El ID del PrecioTemporales no esta : no se encuentra en la base de datos";
       }
     } catch (error) {
       console.log("Ha ocurrido un error al consultando.");
@@ -51,7 +54,7 @@ export class VueloController {
     return  result
   }
   
-}
+  }
 
 
 

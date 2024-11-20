@@ -2,7 +2,6 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMan
 import { CategoriaEntity } from "./categorias.entity";
 import { VueloEntity } from "./vuelos.entity";
 import { PreciosTemporalesEntity } from "./precios_temporales.entity";
-import { PasajeroEntity } from "./pasajero.entity";
 
 @Entity("asientos")
 export class AsientoEntity {
@@ -31,14 +30,14 @@ export class AsientoEntity {
   @Column()
   id_precio_temporal?: number;
 
-  @ManyToOne(() => PreciosTemporalesEntity, (precios_temporales) => precios_temporales.id_temporada)
+  @ManyToOne(() => PreciosTemporalesEntity)
   @JoinColumn({ name: "id_precio_temporal" })
   precio_temporal?: PreciosTemporalesEntity;
   
   // // Clave foránea que conecta con la tabla Categoria
-  @ManyToOne(() => CategoriaEntity, (categoria) => categoria.id_categoria)
-  @JoinColumn({ name: "id_categoria" }) // Relación con la columna id_categoria de Categoria
-  categoria?: CategoriaEntity  ; //revisar
+  
+  @ManyToOne(() => CategoriaEntity, { eager: false }) // trae los datos internos 
+  @JoinColumn({ name: "id_categoria" })
+  id_categoria_asiento?: number;
 
-  id_categoria?: number;
 }

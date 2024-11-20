@@ -5,6 +5,7 @@ import { RutasTicket } from "./tickets.router";
 import { RutasVuelo } from "./vuelos.router";
 import { RutasAsiento } from "./asientos.router";
 import { RutasCategoria } from "./categorias.router";
+import { RutasPreciosTemporales } from "./precios_temporales.router";
 
 export const routes = () => {
   const router = Express.Router();
@@ -18,6 +19,7 @@ export const routes = () => {
   router.use(RutasVuelo());
   router.use(RutasAsiento());
   router.use(RutasCategoria());
+  router.use(RutasPreciosTemporales());
 
   return router;
 };
