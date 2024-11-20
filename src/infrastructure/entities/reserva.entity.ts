@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, OneToOne, JoinColumn } from "typeorm";
-
+import { VueloEntity } from "./vuelos.entity";
 
 @Entity("reserva")
 export class ReservaEntity {
