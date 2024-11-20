@@ -19,6 +19,7 @@ export class TicketsRepository {
   obtenerById(id: number){
       return this.repository.findOne({
         select:{
+          id_ticket:true,
           id_reserva: true,
           cod_vuelo: true,
           id_pasajero: true,
