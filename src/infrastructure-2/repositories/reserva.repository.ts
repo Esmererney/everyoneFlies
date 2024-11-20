@@ -1,5 +1,5 @@
 import { ReservaEntity } from "../entities/reserva.entity";
-import { AppDataSource } from "../repositories/config/data-source-orm";
+import { AppDataSource } from "./config/data-source-orm";
 import{Repository} from "typeorm"
 export class ReservaRepository {
   repository: Repository<ReservaEntity>;

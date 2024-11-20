@@ -14,7 +14,7 @@ export class AsientoRepository {
   async obtenerAsientoPorId(idAsiento: number) {
     const asiento = await this.asientoRepo.findOneBy({ id_asiento: idAsiento });
     return asiento != null ? asiento : null;
-  }
+  } 
 
   // Agregar un nuevo asiento
   async agregarAsiento(datos: AsientoEntity) {

@@ -1,5 +1,5 @@
-import { AsientoEntity } from "../infrastructure/entities/asientos.entity";
-import { AsientoRepository } from "../infrastructure/repositories/asiento.repository";
+import { AsientoEntity } from "../infrastructure-2/entities/asientos.entity";
+import { AsientoRepository } from "../infrastructure-2/repositories/asiento.repository";
 
 export class AsientoController {
 
