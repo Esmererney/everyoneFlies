@@ -1,6 +1,6 @@
-import { pasajeroReservaDto } from "../infrastructure-2/dto/pasajero_reserva.dto";
-import { pasajeroReservaEntity } from "../infrastructure-2/entities/pasajero_reserva.entity";
-import { PasajeroReservaRepository } from "../infrastructure-2/repositories/pasajero_reserva.repository";
+import { pasajeroReservaDto } from "../infrastructure/dto/pasajero_reserva.dto";
+import { pasajeroReservaEntity } from "../infrastructure/entities/pasajero_reserva.entity";
+import { PasajeroReservaRepository } from "../infrastructure/repositories/pasajero_reserva.repository";
 
 export class PasajeroReservaController {
     private repository: PasajeroReservaRepository

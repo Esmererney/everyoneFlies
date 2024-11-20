@@ -1,6 +1,6 @@
-import { PasajeroDto } from "../infrastructure-2/dto/pasajero.dto";
-import { PasajeroEntity } from "../infrastructure-2/entities/pasajero.entity";
-import { PasajeroRepository } from "../infrastructure-2/repositories/pasajero.repository";
+import { PasajeroDto } from "../infrastructure/dto/pasajero.dto";
+import { PasajeroEntity } from "../infrastructure/entities/pasajero.entity";
+import { PasajeroRepository } from "../infrastructure/repositories/pasajero.repository";
 
 export class PasajeroController {
     private repository: PasajeroRepository

@@ -1,5 +1,5 @@
-import { CategoriaEntity } from "../infrastructure-2/entities/categorias.entity";
-import { CategoriaRepository } from "../infrastructure-2/repositories/categoria.repository";
+import { CategoriaEntity } from "../infrastructure/entities/categorias.entity";
+import { CategoriaRepository } from "../infrastructure/repositories/categoria.repository";
 
 export class CategoriaController {
 
