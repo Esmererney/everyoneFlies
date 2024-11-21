@@ -1,12 +1,13 @@
 import { Repository } from "typeorm";
 import { PasajeroEntity } from "../entities/pasajero.entity";
 import { AppDataSource } from "./config/data-source-orm";
+import { AppDataSourceMysql } from "../db/source.orm";
 
 export class PasajeroRepository {
     repository: Repository<PasajeroEntity>;
 
     constructor() {
-        this.repository = AppDataSource.getRepository(PasajeroEntity)
+        this.repository = AppDataSourceMysql.getRepository(PasajeroEntity)
     }
 
     agregar(pasajero: PasajeroEntity) {

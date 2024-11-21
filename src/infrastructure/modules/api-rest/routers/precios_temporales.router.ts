@@ -1,5 +1,5 @@
 import Express from "express";
-import { PreciosTemporalesController } from "../../../application/precios_temporales.controller";
+import { PreciosTemporalesController } from "../../../../application/precios_temporales.controller";
 
 export const RutasPreciosTemporales = () => {
 

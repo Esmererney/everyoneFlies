@@ -1,4 +1,4 @@
-export interface curd {
+export interface CRUD {
 
     obtenerTodos(): any ;
     obtenerPorId(id: number): any ;

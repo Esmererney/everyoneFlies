@@ -8,8 +8,8 @@ export class ReservaEntity {
   @PrimaryGeneratedColumn({ name: "id_reserva" })
   id_reserva!: number;
 
-  @Column({ name: "cod_vuelo", type: "varchar", length: 10 })
-  cod_vuelo!: string;
+  @Column()
+  cod_vuelo?: string;
 
   @CreateDateColumn({ name: "fecha_reserva", type: "datetime" })
   fecha_reserva?: Date;

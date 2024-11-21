@@ -1,13 +1,14 @@
 import { Repository } from "typeorm";
-import { PreciosTemporalesEntity } from "../../domain/Entities/precios_temporales.Entity";
 import { AppDataSourcePgs } from "../db/source.orm.pgs";
-import { curd } from "./crud.interfaz";
+import { CRUD } from "./crud.interfaz";
+import { PreciosTemporalesEntity } from "../entities/precios_temporales.entity";
+import { AppDataSourceMysql } from "../db/source.orm";
 
-export class PrecioTemporalesRepository implements curd {
+export class PrecioTemporalesRepository implements CRUD {
   private repositoryPgs: Repository<PreciosTemporalesEntity>;
 
   constructor() {
-    this.repositoryPgs = AppDataSourcePgs.getRepository(PreciosTemporalesEntity);
+    this.repositoryPgs = AppDataSourceMysql.getRepository(PreciosTemporalesEntity);
   }
 
   obtenerTodos() {

@@ -1,9 +1,10 @@
 import { AsientoEntity } from "../entities/asientos.entity";
 import { AppDataSourcePgs } from "../db/source.orm.pgs";
+import { AppDataSourceMysql } from "../db/source.orm";
 
 export class AsientoRepository {
 
-  private asientoRepo = AppDataSourcePgs.getRepository(AsientoEntity);
+  private asientoRepo = AppDataSourceMysql.getRepository(AsientoEntity);
 
   // Obtener todos los asientos
   async obtenerAsientos() {

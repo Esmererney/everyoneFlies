@@ -1,11 +1,11 @@
+import { AppDataSourceMysql } from "../db/source.orm";
 import { ReservaEntity } from "../entities/reserva.entity";
-import { AppDataSource } from "./config/data-source-orm";
 import{Repository} from "typeorm"
 export class ReservaRepository {
   repository: Repository<ReservaEntity>;
 
   constructor() {
-      this.repository = AppDataSource.getRepository(ReservaEntity)
+      this.repository = AppDataSourceMysql.getRepository(ReservaEntity)
   }
 
   agregar(reserva: ReservaEntity) {

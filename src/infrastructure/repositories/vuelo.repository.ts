@@ -1,40 +1,40 @@
 import { Repository } from "typeorm";
 import { VueloEntity as VueloEntity } from "../entities/vuelos.entity";
-import { curd } from "./crud.interfaz";
-import { AppDataSourcePgs } from "../db/source.orm.pgs";
+import { CRUD } from "./crud.interfaz";
+import { AppDataSourceMysql } from "../db/source.orm";
 
-export class vueloRepository implements curd {
+export class vueloRepository implements CRUD {
   
-  private repositoryPgs: Repository<VueloEntity>;
+  private repository: Repository<VueloEntity>;
 
   constructor() {
-    this.repositoryPgs = AppDataSourcePgs.getRepository(VueloEntity);
+    this.repository = AppDataSourceMysql.getRepository(VueloEntity);
   }
 
   obtenerTodos(){
-    return this.repositoryPgs.find();
+    return this.repository.find();
   }
 
   async obtenerPorId(id: number) {
-    const vuelo = await this.repositoryPgs.findOneBy({ id_vuelo: id });
+    const vuelo = await this.repository.findOneBy({ id_vuelo: id });
     return vuelo != null ? vuelo : null;
   }
 
   async crear(datos: VueloEntity) {
-    const vuelo = this.repositoryPgs.create(datos);
-    const vueloExistente = await this.repositoryPgs.findOneBy({
+    const vuelo = this.repository.create(datos);
+    const vueloExistente = await this.repository.findOneBy({
       cod_vuelo: datos.cod_vuelo,
     });
     if (vueloExistente) {
       return "Le vuelo ya existe"; // Retorna null si el código ya está en uso
     } else {
-      return this.repositoryPgs.insert(vuelo);
+      return this.repository.insert(vuelo);
       // return this.repositoryPgs.save(vuelo);
     }
   }
 
   async actualizar(datos: VueloEntity) {
-    const result = await this.repositoryPgs.update( datos.id_vuelo  , { 
+    const result = await this.repository.update( datos.id_vuelo  , { 
       cod_vuelo: datos.cod_vuelo,
       aerolinea: datos.aerolinea,
       origen_aeropuerto: datos.origen_aeropuerto,
@@ -55,9 +55,9 @@ export class vueloRepository implements curd {
   }
 
   async eliminar(id: number) {
-    const vuelo = await this.repositoryPgs.findOneBy({ id_vuelo : id });
+    const vuelo = await this.repository.findOneBy({ id_vuelo : id });
     if (vuelo) {
-      await this.repositoryPgs.remove(vuelo);
+      await this.repository.remove(vuelo);
       return vuelo;
     } else {
       console.log('Vuelo no encontrado');
