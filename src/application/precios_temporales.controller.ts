@@ -1,6 +1,6 @@
 import { PreciosTemporalesEntity } from "../domain/Entities/precios_temporales.Entity";
-import { PrecioTemporalesRepository } from "../Infrastructure/repository/precioTempoprale.repository";
-import { vueloRepository } from "../Infrastructure/repository/vuelo.Repositori";
+import { PrecioTemporalesRepository } from "../infrastructure/repository/precioTempoprale.repository";
+import { vueloRepository } from "../infrastructure/repository/vuelo.Repositori";
 
 export class PreciosTemporalesController {
 

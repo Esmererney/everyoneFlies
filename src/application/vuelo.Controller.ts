@@ -1,5 +1,5 @@
 import { VueloEntity } from "../domain/Entities/vuelos.Entity";
-import { vueloRepository } from "../Infrastructure/repository/vuelo.Repositori";
+import { vueloRepository } from "../infrastructure/repository/vuelo.Repositori";
 
 export class VueloController {
 

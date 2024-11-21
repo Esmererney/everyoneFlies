@@ -1,9 +1,9 @@
 import Express from "express";
 
-import { AppDataSourcePgs } from "./src/Infrastructure/db/source.orm.pgs";
-import { routes } from "./src/Infrastructure/api-rest/routes/routes.index";
-import { AppDataSourceMysql } from "./src/Infrastructure/db/source.orm";
-import middleware404 from "./src/Infrastructure/api-rest/middleware/middleware";
+import { AppDataSourcePgs } from "./src/infrastructure/db/source.orm.pgs";
+import { routes } from "./src/infrastructure/api-rest/routes/routes.index";
+import { AppDataSourceMysql } from "./src/infrastructure/db/source.orm";
+import middleware404 from "./src/infrastructure/api-rest/middleware/middleware";
 
 const createServer = async () => {
   try {
