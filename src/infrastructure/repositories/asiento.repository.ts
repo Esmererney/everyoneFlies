@@ -55,7 +55,7 @@ export class AsientoRepository {
       id_categoria_asiento: datos.id_categoria_asiento,
       disponible: datos.disponible,
       numero_asiento: datos.numero_asiento,
-      id_precio_temporal: datos.id_precio_temporal,
+      // id_precio_temporal: datos.id_precio_temporal,
     });
 
     if (result.affected && result.affected > 0) {
