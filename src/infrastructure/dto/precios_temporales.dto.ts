@@ -11,7 +11,7 @@ export class CreatePreciosTemporalesDto {
     disponibilidad: number;
 
     @IsNumber()
-    precio_final: number;
+    porcentaje_final: number;
 
     constructor(body: {
         temporada: string;
@@ -22,7 +22,7 @@ export class CreatePreciosTemporalesDto {
         this.temporada = body?.temporada;
         this.demanda = body?.demanda;
         this.disponibilidad = body?.disponibilidad;
-        this.precio_final = body?.precio_final;
+        this.porcentaje_final = body?.precio_final;
     }
 
     async validateDto() {
