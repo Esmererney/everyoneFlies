@@ -36,7 +36,7 @@ export class AsientoEntity {
   
   // // Clave foránea que conecta con la tabla Categoria
   
-  @ManyToOne(() => CategoriaEntity, { eager: false }) // trae los datos internos 
+  @ManyToOne(() => CategoriaEntity, (categoria) => categoria.id_categoria ) //  { eager: false } trae los datos internos 
   @JoinColumn({ name: "id_categoria" })
   id_categoria_asiento?: number;
 

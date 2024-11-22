@@ -4,8 +4,9 @@ import { TicketsEntity } from "./tickets.entity"
 
 @Entity("pasajero")
 export class PasajeroEntity {
+
     @PrimaryGeneratedColumn()
-    id_pasajero!: number
+    id_pasajero! : number 
 
     @Column()
     nombre: string

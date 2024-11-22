@@ -11,6 +11,15 @@ import { pasajeroReservaEntity } from "../entities/pasajero_reserva.entity"
 import { ReservaEntity } from "../entities/reserva.entity"
 import { TicketsEntity } from "../entities/tickets.entity"
 
+
+
+console.log( "--------" +    config.get<string>("HOST"))
+console.log( "--------" +    config.get<number>("DB_PORT"))
+console.log( "--------" +    config.get<string>("USER"))
+console.log( "--------" +    config.get<string>("PASSWORD"))
+console.log( "--------" +    config.get<string>("DATABASE"))
+
+
 export const AppDataSourceMysql = new DataSource({
     type: "mysql", // Tipo de base de datos
     host: config.get('HOST'),
@@ -29,7 +38,7 @@ export const AppDataSourceMysql = new DataSource({
         TicketsEntity 
        ],  // NOTA: Registrar cada entidad "tabla"
     synchronize: true,
-    connectTimeout: 10000, // Tiempo en milisegundos (10 segundos)
+    connectTimeout: 30000, // Tiempo en milisegundos (30 segundos)
 
 
 })

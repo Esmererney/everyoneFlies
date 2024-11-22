@@ -1,10 +1,14 @@
 import { AsientoEntity } from "../entities/asientos.entity";
 import { AppDataSourcePgs } from "../db/source.orm.pgs";
 import { AppDataSourceMysql } from "../db/source.orm";
+import { VueloEntity } from "../entities/vuelos.entity";
 
 export class AsientoRepository {
 
   private asientoRepo = AppDataSourceMysql.getRepository(AsientoEntity);
+  private vuelosRepo = AppDataSourceMysql.getRepository(VueloEntity);
+
+
 
   // Obtener todos los asientos
   async obtenerAsientos() {
@@ -20,12 +24,28 @@ export class AsientoRepository {
   // Agregar un nuevo asiento
   async agregarAsiento(datos: AsientoEntity) {
     const asiento = this.asientoRepo.create(datos);
+
+    const vuelo = await this.vuelosRepo.findOne({
+      where: { cod_vuelo : datos.cod_vuelo },
+      select: ["id_vuelo", "total_asientos"]});
+
+      if (!vuelo) {
+        throw new Error("El vuelo especificado no existe");
+    }
+
+    const asientosActuales = await this.asientoRepo.count({ where: { cod_vuelo : datos.cod_vuelo } });
+    if (asientosActuales >= vuelo.total_asientos! ) {
+      throw new Error("No se pueden agregar más asientos para este vuelo, ya alcanzó el límite permitido");
+  }
+
+
     const asientoExistente = await this.asientoRepo.findOneBy({ cod_vuelo: datos.cod_vuelo, numero_asiento: datos.numero_asiento });
     if (asientoExistente) {
       return null; // Retorna null si el asiento ya está en uso (mismo vuelo y número de asiento)
     } else {
       return this.asientoRepo.save(asiento);
     }
+    
   }
 
   // Actualizar un asiento existente

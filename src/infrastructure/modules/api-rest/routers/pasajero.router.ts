@@ -22,8 +22,8 @@ export const PasajeroRouter = () => {
       });
   });
 
-  router.get("/pasajero", (req, res) => {
-    const id = req.query.id
+  router.get("/pasajero/:id", (req, res) => {
+    const id = req.params.id
     pasajeroCtrl
       .obtenerPorId(Number(id))
       .then((result) => {
