@@ -7,6 +7,7 @@ export interface PasajeroReserva {
   id_asiento?: number;
   id_reserva?: number;
   id_pasajero?: number;
+  precio_subtotal?:number;
   reserva?: Reserva;
   pasajero?: Pasajero;
   asinto?: Asiento;

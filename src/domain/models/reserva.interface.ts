@@ -6,5 +6,6 @@ export interface Reserva {
   fecha_reserva?: Date;
   estado_reserva?: string;
   cantidad_pasajeros?: number;
+  precio_total?:number;
   vuelo?: Vuelo;
 }
