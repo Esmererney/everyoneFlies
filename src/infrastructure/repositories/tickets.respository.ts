@@ -1,3 +1,4 @@
+import { AppDataSourceMysql } from "../db/source.orm";
 import { TicketsEntity } from "../entities/tickets.entity";
 import { AppDataSource } from "./config/data-source-orm";
 import{Repository} from "typeorm"
@@ -5,7 +6,7 @@ export class TicketsRepository {
   repository: Repository<TicketsEntity>;
 
   constructor() {
-      this.repository = AppDataSource.getRepository(TicketsEntity)
+      this.repository = AppDataSourceMysql.getRepository(TicketsEntity)
   }
 
   agregar(tickets: TicketsEntity) {

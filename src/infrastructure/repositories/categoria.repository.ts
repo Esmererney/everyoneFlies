@@ -1,9 +1,9 @@
 import { CategoriaEntity } from "../entities/categorias.entity";
-import { AppDataSourcePgs } from "../db/source.orm.pgs";
+import { AppDataSourceMysql } from "../db/source.orm";
 
 export class CategoriaRepository {
 
-  private categoriaRepo = AppDataSourcePgs.getRepository(CategoriaEntity);
+  private categoriaRepo = AppDataSourceMysql.getRepository(CategoriaEntity);
 
   // Obtener todas las categorías
   async obtenerCategorias() {

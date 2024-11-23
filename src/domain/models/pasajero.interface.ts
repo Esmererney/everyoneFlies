@@ -1,5 +1,5 @@
 import { PasajeroReserva } from "./pasajero_reserva.interface";
-import { Ticket } from "./Ticket.interface";
+import { Ticket } from "./ticket.interface";
 
 export interface Pasajero {
   id_pasajero: number;

@@ -3,6 +3,6 @@ export interface PrecioTemporal {
     temporada?: string;
     demanda?: number;
     disponibilidad?: number;
-    precio_final?: number;
+    porcentaje_final?: number;
   }
   

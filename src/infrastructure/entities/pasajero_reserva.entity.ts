@@ -17,6 +17,9 @@ export class pasajeroReservaEntity {
     
     @Column({ name: "id_pasajero", type: "int"})
     id_pasajero?: number
+
+    @Column({name: "precio_subtotal", type: "int"})
+    precio_subtotal?:number
     
     @ManyToOne(() => ReservaEntity, (reserva) => reserva.id_reserva)
     @JoinColumn({name: "id_reserva"})

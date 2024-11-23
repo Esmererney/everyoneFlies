@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn, OneToOne} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, JoinColumn, OneToOne} from "typeorm";
 import { VueloEntity } from "./vuelos.entity";
 
 
@@ -8,19 +8,22 @@ export class ReservaEntity {
   @PrimaryGeneratedColumn({ name: "id_reserva" })
   id_reserva!: number;
 
-  @Column({ name: "cod_vuelo", type: "varchar"})
-  cod_vuelo!: string;
+  @Column()
+  cod_vuelo?: string;
 
   @CreateDateColumn({ name: "fecha_reserva", type: "datetime" })
   fecha_reserva?: Date;
 
-  @Column({ name: "estado_reserva", type: "varchar", default: "Disponible"})
+  @Column({ name: "estado_reserva", type: "varchar", length: 100, default: "Disponible"})
   estado_reserva?: string;
 
   @Column({ name: "cantidad_pasajeros", type: "int" })
   cantidad_pasajeros?: number;
 
-  @ManyToOne(() => VueloEntity, (vuelo) => vuelo.id_vuelo)
+  @Column({ name: "precio_total", type: "int" })
+  precio_total?: number;
+
+  @OneToOne(() => VueloEntity, (vuelo) => vuelo.id_vuelo)
   @JoinColumn({ name: "cod_vuelo" })
   vuelo?: VueloEntity;
 }

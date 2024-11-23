@@ -1,13 +1,14 @@
 import { Repository } from "typeorm";
-import { PreciosTemporalesEntity } from "../../domain/Entities/precios_temporales.Entity";
 import { AppDataSourcePgs } from "../db/source.orm.pgs";
-import { curd } from "./crud.interfaz";
+import { CRUD } from "../../domain/crud";
+import { PreciosTemporalesEntity } from "../entities/precios_temporales.entity";
+import { AppDataSourceMysql } from "../db/source.orm";
 
-export class PrecioTemporalesRepository implements curd {
+export class PrecioTemporalesRepository implements CRUD {
   private repositoryPgs: Repository<PreciosTemporalesEntity>;
 
   constructor() {
-    this.repositoryPgs = AppDataSourcePgs.getRepository(PreciosTemporalesEntity);
+    this.repositoryPgs = AppDataSourceMysql.getRepository(PreciosTemporalesEntity);
   }
 
   obtenerTodos() {
@@ -38,7 +39,7 @@ export class PrecioTemporalesRepository implements curd {
         temporada : datos.temporada,
         demanda : datos.demanda,
         disponibilidad : datos.disponibilidad,
-        precio_final : datos.precio_final,  
+        porcentaje_final : datos.porcentaje_final,  
       });
   
       if (result.affected && result.affected > 0) {
