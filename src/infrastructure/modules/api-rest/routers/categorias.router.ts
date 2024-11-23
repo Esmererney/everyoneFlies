@@ -7,6 +7,32 @@ export const RutasCategoria = () => {
   const categoriaCtrl = new CategoriaController();
 
   // Ruta para obtener todas las categorías
+  //swagger:
+
+  /** 
+   * @swagger
+   * /categorias:
+   *   get: 
+   *     description: Obtiene todas las categorías
+   *     produces:
+   *       - application/json
+   *     responses:
+   *       200:
+   *         description: Categorias obtenidas
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 type: object
+   *       500:
+   *         description: Error al obtener las categorías
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   */ 
   router.get("/categorias", (req, res) => { 
     categoriaCtrl.obtener().then((result) => {
       res.send(result);
