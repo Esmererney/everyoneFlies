@@ -10,8 +10,8 @@ export class CreateAsientoDto {
     @IsString()
     numero_asiento: string;
 
-    @IsInt()
-    id_precio_temporal: number;
+    // @IsInt()
+    // id_precio_temporal: number;
 
     @IsInt()
     id_categoria_asiento: number;
@@ -26,7 +26,7 @@ export class CreateAsientoDto {
         this.cod_vuelo = body?.cod_vuelo;
         this.disponible = body?.disponible;
         this.numero_asiento = body?.numero_asiento;
-        this.id_precio_temporal = body?.id_precio_temporal;
+        // this.id_precio_temporal = body?.id_precio_temporal;
         this.id_categoria_asiento = body?.id_categoria_asiento;
     }
 

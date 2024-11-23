@@ -27,14 +27,15 @@ export class AsientoEntity {
   numero_asiento?: string;
 
   // Clave foránea que conecta con la tabla PrecioTemporal
-  @Column()
-  id_precio_temporal?: number;
+  //se comenta esta columna debido a que no se requiere 
+  // @Column()
+  // id_precio_temporal?: number;
+
+  // @ManyToOne(() => PreciosTemporalesEntity)
+  // @JoinColumn({ name: "id_precio_temporal" })
+  // precio_temporal?: PreciosTemporalesEntity;
   
   // // Clave foránea que conecta con la tabla Categoria
-
-  @ManyToOne(() => PreciosTemporalesEntity)
-  @JoinColumn({ name: "id_precio_temporal" })
-  precio_temporal?: PreciosTemporalesEntity;
   
   @ManyToOne(() => CategoriaEntity, (categoria) => categoria.id_categoria ) //  { eager: false } trae los datos internos 
   @JoinColumn({ name: "id_categoria" })

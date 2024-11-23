@@ -20,6 +20,9 @@ export class ReservaEntity {
   @Column({ name: "cantidad_pasajeros", type: "int" })
   cantidad_pasajeros?: number;
 
+  @Column({ name: "precio_total", type: "int" })
+  precio_total?: number;
+
   @ManyToOne(() => VueloEntity, (vuelo) => vuelo.cod_vuelo , { nullable: false })
   vuelo?: VueloEntity;
   
