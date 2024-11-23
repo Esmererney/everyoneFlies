@@ -76,6 +76,24 @@ export const RutasReserva = () => {
     }
   });
 
+  router.post("/agregarReserva", async (req, res) => {
+    try {
+      const payload = req.body;
+      
+      // Llamar al controlador para crear la reserva
+      const result = await reservaCtrl.crearReserva(payload);
+  
+      // Enviar la respuesta
+      res.status(201).send(result);
+    } catch (error: any) {
+      console.error('Error al crear la reserva:', error);
+  
+      // Enviar un error genérico con un código de estado adecuado
+      res.status(500).json({ message: error.message || "Error interno del servidor" });
+    }
+  });
+  
+
 
   return router;
 

@@ -20,7 +20,7 @@ const common: any = {
     username: config.get('USER'),
     password: config.get('PASSWORD') || '',
     database: config.get('DATABASE'),
-    synchronize: true, // NOTA: Si esta 
+    synchronize: false, // NOTA: Si esta 
     entities: [PasajeroEntity, pasajeroReservaEntity, ReservaEntity, VueloEntity, AsientoEntity, CategoriaEntity, UsuarioEntity, PreciosTemporalesEntity, TicketsEntity], // NOTA: Registrar cada entidad "tabla"
 }
 const postgresConfig: PostgresConnectionOptions = {

@@ -52,4 +52,13 @@ export class CategoriaRepository {
       return null;
     }
   }
+
+  // Obtener categoría por su ombre
+  async obtenerCategoriaPorNombre(nombre_categoria: string) {
+    
+    const categoria = await this.categoriaRepo.findOneBy({ nombre_categoria: nombre_categoria });
+    console.log('categoria consulta', categoria);
+    
+    return categoria;
+  }
 }

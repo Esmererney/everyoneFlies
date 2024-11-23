@@ -20,6 +20,11 @@ export class vueloRepository implements curd {
     return vuelo != null ? vuelo : null;
   }
 
+  async obtenerPorCodVuelo(id: string) {
+    const vuelo = await this.repositoryPgs.findOneBy({ cod_vuelo: id });
+    return vuelo != null ? vuelo : null;
+  }
+
   async crear(datos: VueloEntity) {
     const vuelo = this.repositoryPgs.create(datos);
     const vueloExistente = await this.repositoryPgs.findOneBy({

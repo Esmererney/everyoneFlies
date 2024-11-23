@@ -1,9 +1,9 @@
 import { AsientoEntity } from "../entities/asientos.entity";
-import { AppDataSourcePgs } from "../db/source.orm.pgs";
+import { AppDataSource } from "./config/data-source-orm";
 
 export class AsientoRepository {
 
-  private asientoRepo = AppDataSourcePgs.getRepository(AsientoEntity);
+  private asientoRepo = AppDataSource.getRepository(AsientoEntity);
 
   // Obtener todos los asientos
   async obtenerAsientos() {
@@ -55,4 +55,33 @@ export class AsientoRepository {
       return null;
     }
   }
+
+
+  // Obtener asiento disponible
+  async obtenerAsientoDis(cod_vuelo: string, id_categoria_asiento: number) {
+    console.log(cod_vuelo);
+    console.log(id_categoria_asiento);
+    
+    const asiento = await this.asientoRepo.count({
+      where: {
+        cod_vuelo: cod_vuelo,
+        id_categoria_asiento: id_categoria_asiento,
+        disponible: true,
+      },
+    })
+    return asiento;
+  }
+
+  async obtenerDetallesAsientosDisponibles(cod_vuelo: string, id_categoria: number, cantidad: number) {
+    return this.asientoRepo.find({
+        where: {
+            cod_vuelo,
+            id_categoria,
+            disponible: true, // suponiendo que hay un campo para disponibilidad
+        },
+        take: cantidad, // Esto limita la cantidad de registros a devolver
+    });
+}
+
+  
 }
