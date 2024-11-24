@@ -7,9 +7,7 @@ export class AsientoRepository {
 
   private asientoRepo = AppDataSourceMysql.getRepository(AsientoEntity);
   private vuelosRepo = AppDataSourceMysql.getRepository(VueloEntity);
-
-
-
+  
   // Obtener todos los asientos
   async obtenerAsientos() {
     return this.asientoRepo.find(); // Obtener todos los asientos
@@ -36,7 +34,7 @@ export class AsientoRepository {
     const asientosActuales = await this.asientoRepo.count({ where: { cod_vuelo : datos.cod_vuelo } });
     if (asientosActuales >= vuelo.total_asientos! ) {
       throw new Error("No se pueden agregar más asientos para este vuelo, ya alcanzó el límite permitido");
-  }
+    }
 
 
     const asientoExistente = await this.asientoRepo.findOneBy({ cod_vuelo: datos.cod_vuelo, numero_asiento: datos.numero_asiento });
