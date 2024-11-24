@@ -1,5 +1,4 @@
 import { AsientoEntity } from "../entities/asientos.entity";
-import { AppDataSourcePgs } from "../db/source.orm.pgs";
 import { AppDataSourceMysql } from "../db/source.orm";
 import { VueloEntity } from "../entities/vuelos.entity";
 
