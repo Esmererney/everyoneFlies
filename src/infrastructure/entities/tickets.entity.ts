@@ -29,8 +29,8 @@ export class TicketsEntity {
   @JoinColumn({ name: "id_reserva" })
   reserva?: ReservaEntity;
 
-  @ManyToOne(() => VueloEntity, (vuelo) => vuelo.cod_vuelo)
-  @JoinColumn({ name: "cod_vuelo" })
+  @ManyToOne(() => VueloEntity, (vuelo) => vuelo.id_vuelo)
+  @JoinColumn({ name: "id_vuelo" })
   vuelo!: VueloEntity;
 
   @OneToOne(() => PasajeroEntity, (pasajero) => pasajero.id_pasajero,)
