@@ -1,9 +1,9 @@
 {
-  "HOST": "junction.proxy.rlwy.net",
-  "PORT": 51520  ,
+  "HOST": "localhost",
+  "PORT": 3306 ,
   "USER": "root",
   "DB_TYPE":"mysql",
-  "PASSWORD": "qhRywzTZfelJHbzHgorSDzIZZOFSwFbS", 
-  "DATABASE": "railway",
+  "PASSWORD": "1036957981", 
+  "DATABASE": "aerolinea",
   "SSL": true
 }
