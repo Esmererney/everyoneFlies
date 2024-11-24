@@ -1,7 +1,7 @@
 
 {
   "HOST": "",
-  "DB_PORT": 5432,
+  "DB_PORT": 51520,
   "USER": "",
   "PASSWORD": "", 
   "DATABASE": "",

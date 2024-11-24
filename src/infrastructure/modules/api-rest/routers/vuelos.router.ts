@@ -1,28 +1,27 @@
 import Express from "express";
-import { ReservaController } from "../../../../application/reserva.controller"
-
+import { VueloController } from "../../../../application/vuelo.Controller";
 
 // import { ProductoController } from "";
 // Objetivo: Exponer las rutas de la api
 // PATH: es la ruta
 
-export const RutasReserva = () => {
+export const RutasVuelo = () => {
   
   const router = Express.Router();
-   const reservaCtrl = new ReservaController();
+   const vueloCtrl = new VueloController();
 
-  router.get("/reserva", (req, res) => { 
-    reservaCtrl.obtener().then((result) => {
+  router.get("/vuelos", (req, res) => { 
+    vueloCtrl.obtener().then((result) => {
       res.send(result);
     })
     .catch((error) => {
-      res.send("Error al obtener la reserva:" + error ); // Manejo de errores
+      res.send("Error al obtener el vuelo:" + error ); // Manejo de errores
     });
   });
 
-  router.post("/reserva", (req, res) => { 
+  router.post("/vuelos", (req, res) => { 
     const payload = req.body;
-    reservaCtrl.agregar(payload).then((result) => {
+    vueloCtrl.agregar(payload).then((result) => {
       res.send(result);
     })
       .catch((error) => {
@@ -30,9 +29,9 @@ export const RutasReserva = () => {
       });
   });
 
-  router.put("/reserva", (req, res) => {  
+  router.put("/vuelos", (req, res) => {  
     const payload = req.body;
-    reservaCtrl.actualizar(payload).then((result) => {
+    vueloCtrl.actualizar(payload).then((result) => {
       res.send(result);
     })
       .catch((error) => {
@@ -40,27 +39,27 @@ export const RutasReserva = () => {
       });
   });
 
-  router.get("/reserva/:id", async (req, res) => { 
+  router.get("/vuelos/:id", async (req, res) => { 
 
     try {
       const idStr = req.params.id;
        const id = parseInt(idStr);
       if (Number.isNaN(id)) {
-        res.status(400).send({ ok: false, message: "Error en el id enviado." });
+        res.status(400).send({ ok: false, message: "Error en el id enviado .Debe ser un número válido." });
         return;
       }
-      const result = await reservaCtrl.obtenerById(id);
+      const result = await vueloCtrl.obtenerPorId(id);
       if (result != null) {
         res.send({ result });
       } else {
-        res.status(404).send({ ok: false, message: "Error" });
+        res.status(404).send({ ok: false, message: "Erroor" });
       }
     } catch (error) {
       res.status(500).send(error);
     }
   });
 
-  router.delete("/reserva/:id", async (req, res) => {
+  router.delete("/vuelos/:id", async (req, res) => {
     try {
       const idStr = req.params.id;
       const id = parseInt(idStr);
@@ -68,7 +67,7 @@ export const RutasReserva = () => {
         res.status(400).send({ ok: false, message: "Error en el id enviado" });
         return;
       }
-      const result =  await reservaCtrl.eliminar(id);
+      const result =  await vueloCtrl.eliminar(id);
        const status = result != null ? 200 : 400;
        res.status(status).send(result);
     } catch (error) {

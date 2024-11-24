@@ -1,5 +1,5 @@
 import { TicketsEntity } from "../infrastructure/entities/tickets.entity";
-import { TicketsRepository } from "../infrastructure/repository/tickets.respository";
+import { TicketsRepository } from "../infrastructure/repositories/tickets.respository";
 
 export class TicketsController {
 

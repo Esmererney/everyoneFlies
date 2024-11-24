@@ -1,21 +1,27 @@
 import Express from "express";
+import { routes } from "./src/infrastructure/modules/api-rest/routers/index.router";
+import middleware404 from "./src/infrastructure/modules/api-rest/middleware/middleware-404";
+import { AppDataSourceMysql } from "./src/infrastructure/db/source.orm";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocs from "./swaggerConfig";
 
-import { Routes } from "./src/infrastructure/modules/api-rest/routes/index.router";  
-import middleware404 from "./src/infrastructure/modules/api-rest/middleware/middleware-404"
-import { AppDataSource } from "./src/infrastructure/repository/config/data-source-orm";
 
 const createServer = async () => {
   try {
 
     console.log("Entorno:", process.env.NODE_ENV);
 
-    AppDataSource.initialize()
-      .then(() => {
+    AppDataSourceMysql.initialize().then(() => {
         console.log("Conexión exitosa");
-      })
-      .catch((err) => {
+      }).catch((err) => {
         console.error("Error en la conexión", err);
       });
+
+      //AppDataSourceMysql.initialize().then(() => {
+      //     console.log("Conexión exitosa");
+      //   }).catch((err) => {
+      //     console.error("Error en la conexión", err);
+      // });
 
     console.log("Datasource inicializado");
 
@@ -26,17 +32,22 @@ const createServer = async () => {
       res.send({ message: "Bienvenido a la API " });
     });
 
-    app.use("/api/v1", Routes());
+    app.use("/api/v1", routes());
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
     app.use(middleware404);
 
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
       console.log(`Servidor Api-Rest ejecutando: http://localhost:${PORT}`);
+      console.log(`Documentacion Swagger: http://localhost:${PORT}/api-docs`);
     });
+
   } 
   catch (error) {
     console.error(error);
     console.error(`Error al iniciar el servidor web: ${error}`);
    }
+
 };
+
 createServer();

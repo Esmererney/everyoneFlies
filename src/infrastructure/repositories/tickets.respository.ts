@@ -1,3 +1,4 @@
+import { AppDataSourceMysql } from "../db/source.orm";
 import { TicketsEntity } from "../entities/tickets.entity";
 import { AppDataSource } from "./config/data-source-orm";
 import{Repository} from "typeorm"
@@ -5,7 +6,7 @@ export class TicketsRepository {
   repository: Repository<TicketsEntity>;
 
   constructor() {
-      this.repository = AppDataSource.getRepository(TicketsEntity)
+      this.repository = AppDataSourceMysql.getRepository(TicketsEntity)
   }
 
   agregar(tickets: TicketsEntity) {
@@ -19,8 +20,9 @@ export class TicketsRepository {
   obtenerById(id: number){
       return this.repository.findOne({
         select:{
+          id_ticket:true,
           id_reserva: true,
-          cod_vuelo: true,
+          id_vuelo: true,
           id_pasajero: true,
           fecha_emision:true,
           estado_ticket:true,
@@ -38,7 +40,7 @@ export class TicketsRepository {
   actualizar(tickets: TicketsEntity) {
       return this.repository.update(tickets.id_ticket, {
        
-        cod_vuelo: tickets.cod_vuelo,
+        id_vuelo: tickets.id_vuelo,
         id_pasajero: tickets.id_pasajero,
         fecha_emision: tickets.fecha_emision,
         estado_ticket: tickets.estado_ticket,

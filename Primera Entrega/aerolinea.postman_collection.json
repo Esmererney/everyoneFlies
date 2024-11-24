@@ -18,59 +18,13 @@
 								"method": "POST",
 								"header": [],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "cod_vuelo",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "aeroliena",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "aeropuertoOrigen",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "aeropuertoDestino",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "f_h_salida",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "f_h_llegada",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "duracion",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "asientoDisponibles",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "costoBoletosBase",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "",
-											"value": "",
-											"type": "text"
+									"mode": "raw",
+									"raw": "{\r\n    \"cod_vuelo\" : \"123\",\r\n    \"aerolinea\" : \"Avianca\",\r\n    \"origen_aeropuerto\" : \"Cortizo\",\r\n    \"destino_aeropuerto\" : \"Dorado\",\r\n    \"fecha_salida\" : \"12-12-2024\",\r\n    \"fecha_llegada\" : \"12-12-2024\",\r\n    \"duracion\" : \"1\",\r\n    \"total_asientos\" : \"30\",\r\n    \"asientos_disponibles\" : \"30\",\r\n    \"estado_vuelo\" : \"Disponible\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
 										}
-									]
+									}
 								},
 								"url": "http://localhost:3000/api/v1/vuelos"
 							},
@@ -98,59 +52,8 @@
 								"method": "PUT",
 								"header": [],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "cod_vuelo",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "aeroliena",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "aeropuertoOrigen",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "aeropuertoDestino",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "f_h_salida",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "f_h_llegada",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "duracion",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "asientoDisponibles",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "costoBoletosBase",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "id_vuelo",
-											"value": "",
-											"type": "text"
-										}
-									]
+									"mode": "raw",
+									"raw": "{\r\n        \"cod_vuelo\": \"EF123\",\r\n        \"aerolinea\": \"AeroColombia\",\r\n        \"origen_aeropuerto\": \"El Dorado (BOG)\",\r\n        \"destino_aeropuerto\": \"José María Córdova (MDE)\",\r\n        \"fecha_salida\": \"2024-12-01T15:00:00.000Z\",\r\n        \"fecha_llegada\": \"2024-12-01T16:30:00.000Z\",\r\n        \"duracion\": 90,\r\n        \"total_asientos\": 10,\r\n        \"asientos_disponibles\": 10,\r\n        \"estado_vuelo\": \"Disponible\"\r\n    }"
 								},
 								"url": "http://localhost:3000/api/v1/vuelos"
 							},
@@ -250,7 +153,198 @@
 										}
 									]
 								},
-								"url": "http://localhost:3000/api/v1/vuelos"
+								"url": {
+									"raw": "http://localhost:3000/api/v1/vuelos?aeropuerto_origen&aeropuerto_destino&f_h_llegada&f_h_salida",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"vuelos"
+									],
+									"query": [
+										{
+											"key": "aeropuerto_origen",
+											"value": null
+										},
+										{
+											"key": "aeropuerto_destino",
+											"value": null
+										},
+										{
+											"key": "f_h_llegada",
+											"value": null
+										},
+										{
+											"key": "f_h_salida",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Pasajero",
+					"item": [
+						{
+							"name": "Crear pasajero",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Ney\",\r\n  \"apellido\": \"Barbosa\",\r\n  \"email\": \"nbarbosa@example.com\",\r\n  \"telefono\": 1234567890,\r\n  \"nacionalidad\": \"Colombiana\",\r\n  \"id_pasaporte\": 147025783\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:3000/api/v1/pasajero"
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener pasajero especifico",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/pasajero?id=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"pasajero"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Actualizar reserva del pasajero",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Juan Carlos\",\r\n  \"apellido\": \"Gómez\",\r\n  \"email\": \"juan.carlos.perez@example.com\",\r\n  \"telefono\": 3107654321,\r\n  \"nacionalidad\": \"Colombiana\",\r\n  \"id_pasaporte\": 12345678901\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:3000/api/v1/pasajero"
+							},
+							"response": []
+						},
+						{
+							"name": "Eliminar pasajero",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/pasajero?id=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"pasajero"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener pasajero por criterio",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Juan Carlos\",\r\n    \"email\": \"juan.carlos.perez@example.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:3000/api/v1/pasajero/buscar"
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener todos los pasajeros",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": "http://localhost:3000/api/v1/pasajeros"
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener historial reservas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/pasajero/{id}/reservas?id_pasajero",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"pasajero",
+										"{id}",
+										"reservas"
+									],
+									"query": [
+										{
+											"key": "id_pasajero",
+											"value": null
+										}
+									]
+								}
 							},
 							"response": []
 						}
@@ -265,46 +359,15 @@
 								"method": "POST",
 								"header": [],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "id_vuelo",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "id_pasajero",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "fechaReserva",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "estadoReserva",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "tipoReserva",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "detalleAsiento",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "id_catagoria",
-											"value": "",
-											"type": "text"
+									"mode": "raw",
+									"raw": "{\r\n    \"id_pasajero\": \"1\",\r\n    \"cod_vuelo\": \"1\",\r\n    \"cantidad_pasajeros\": \"2\",\r\n    \"categoria\": \"Económica\",\r\n    \"precio_subtotal\": 10,\r\n    \"precio_total\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
 										}
-									]
+									}
 								},
-								"url": "http://localhost:3000/api/v1/reservas"
+								"url": "http://localhost:3000/api/v1/agregarReserva"
 							},
 							"response": []
 						},
@@ -359,22 +422,34 @@
 								"method": "PUT",
 								"header": [],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "id_vuelo",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "detalleAsiento",
-											"value": "",
-											"type": "text"
+									"mode": "raw",
+									"raw": "{\r\n    \"id_reserva\": 1,\r\n    \"nueva_cantidad\": 3,\r\n    \"cantidad_pasajeros\": 4,\r\n    \"categoria\": \"Economica\",\r\n    \"precio_subtotal\": 10,\r\n    \"precio_total\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
 										}
-									]
+									}
 								},
+								"url": "http://localhost:3000/api/v1/reserva"
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener reservas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:3000/api/v1/reserva"
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener reserva por criterio",
+							"request": {
+								"method": "GET",
+								"header": [],
 								"url": {
-									"raw": "http://localhost:3000/api/v1/reservas?",
+									"raw": "http://localhost:3000/api/v1/reservas?id_vuelo&id_pasajero&id_reverva",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -387,52 +462,19 @@
 									],
 									"query": [
 										{
-											"key": "",
+											"key": "id_vuelo",
+											"value": null
+										},
+										{
+											"key": "id_pasajero",
+											"value": null
+										},
+										{
+											"key": "id_reverva",
 											"value": null
 										}
 									]
 								}
-							},
-							"response": []
-						},
-						{
-							"name": "Obtener reservas",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": "http://localhost:3000/api/v1/reservas"
-							},
-							"response": []
-						},
-						{
-							"name": "Obtener reserva por criterio",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "id_vuelo",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "id_pasajero",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "id_reverva",
-											"value": "",
-											"type": "text"
-										}
-									]
-								},
-								"url": "http://localhost:3000/api/v1/reservas"
 							},
 							"response": []
 						}
@@ -460,12 +502,12 @@
 											"type": "text"
 										},
 										{
-											"key": "fechaEmision",
+											"key": "fecha_emision",
 											"value": "",
 											"type": "text"
 										},
 										{
-											"key": "estadoTickets",
+											"key": "estado_tickets",
 											"value": "",
 											"type": "text"
 										}
@@ -477,23 +519,28 @@
 						},
 						{
 							"name": "Obtener tickets",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tickets?id_reserva",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tickets"
+									],
+									"query": [
 										{
 											"key": "id_reserva",
-											"value": "",
-											"type": "text"
+											"value": null
 										}
 									]
-								},
-								"url": "http://localhost:3000/api/v1/tickets"
+								}
 							},
 							"response": []
 						},
@@ -511,7 +558,7 @@
 											"type": "text"
 										},
 										{
-											"key": "estadoTickets",
+											"key": "estado_tickets",
 											"value": "",
 											"type": "text"
 										}
@@ -550,228 +597,22 @@
 						},
 						{
 							"name": "Obtener ticket por criterio",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "estadoTickets",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "fechaEmision",
-											"value": "",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "?",
-									"query": [
-										{
-											"key": "",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Pasajero",
-					"item": [
-						{
-							"name": "Crear pasajero",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "id_pasajero",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "nombre",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "apellido",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "email",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "telefono",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "nacionalidad",
-											"value": "",
-											"type": "text"
-										}
-									]
-								},
-								"url": "http://localhost:3000/api/v1/pasajero"
-							},
-							"response": []
-						},
-						{
-							"name": "Obtener pasajero",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "id_pasajero",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "",
-											"value": "",
-											"type": "text"
-										}
-									]
-								},
-								"url": "http://localhost:3000/api/v1/pasajero"
-							},
-							"response": []
-						},
-						{
-							"name": "Actualizar reserva",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "id_pasajero",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "nombre",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "apellido",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "email",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "telefono",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "nacionalidad",
-											"value": "",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://localhost:3000/api/v1/pasajero?",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"api",
-										"v1",
-										"pasajero"
-									],
-									"query": [
-										{
-											"key": "",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Eliminar pasajero",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:3000/api/v1/reservas?id_reserva",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"api",
-										"v1",
-										"reservas"
-									],
+									"raw": "?estado_tickets&fecha_emision",
 									"query": [
 										{
-											"key": "id_reserva",
+											"key": "estado_tickets",
+											"value": null
+										},
+										{
+											"key": "fecha_emision",
 											"value": null
 										}
 									]
 								}
-							},
-							"response": []
-						},
-						{
-							"name": "Obtener pasajero por criterio",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "nacionalidad",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "nombre",
-											"value": "",
-											"type": "text"
-										}
-									]
-								},
-								"url": "http://localhost:3000/api/v1/pasajero"
 							},
 							"response": []
 						}
@@ -789,7 +630,7 @@
 									"mode": "formdata",
 									"formdata": [
 										{
-											"key": "idPasajero",
+											"key": "id_pasajero",
 											"value": "",
 											"type": "text"
 										},
@@ -829,23 +670,133 @@
 						},
 						{
 							"name": "Ver notificaciones enviadas",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
+								"url": {
+									"raw": "http://localhost:3000/api/v1/notificaciones?id_pasajero",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"notificaciones"
+									],
+									"query": [
 										{
 											"key": "id_pasajero",
-											"value": "",
-											"type": "text"
+											"value": null
 										}
 									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Categoria",
+					"item": [
+						{
+							"name": "Crear categorias",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"nombre_categoria\": \"Primera Clase\",\r\n        \"precio_base\": \"600\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
 								},
-								"url": "http://localhost:3000/api/v1/notificaciones"
+								"url": "http://localhost:3000/api/v1/categorias"
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener categorias",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:3000/api/v1/categorias"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Asiento",
+					"item": [
+						{
+							"name": "Crear asientos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n    {\r\n        \"cod_vuelo\": \"EF123\",\r\n        \"numero_asiento\": \"A1\",\r\n        \"id_categoria\": \"1\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:3000/api/v1/asientos"
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener asientos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:3000/api/v1/asientos"
+							},
+							"response": []
+						},
+						{
+							"name": "Editar asientos",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n    {\r\n        \"cod_vuelo\": \"EF123\",\r\n        \"numero_asiento\": \"A5\",\r\n        \"id_categoria\": \"2\",\r\n        \"id_asiento\": 11\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:3000/api/v1/asientos"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Temporada",
+					"item": [
+						{
+							"name": "New Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id_temporada\": 1,\r\n    \"temporada\": \"Enero\",\r\n    \"demanda\": 100,\r\n    \"disponibilidad\": 100,\r\n    \"precio_final\": 10000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:3000/api/v1/precios-temporales"
 							},
 							"response": []
 						}

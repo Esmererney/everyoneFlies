@@ -9,14 +9,8 @@ export class TicketsEntity {
   @PrimaryGeneratedColumn()
   id_ticket!: number ; 
 
-  @Column({ name: "id_reserva", type: "int"})
-  id_reserva!: number;
-
-  @Column({ name: "cod_vuelo", type: "varchar", length: 10 })
-  cod_vuelo!: string;
-
-  @Column({ name: "id_pasajero", type: "int"})
-  id_pasajero!: number;
+  @Column({ name: "estado_ticket", type: "enum", enum: ["emitido", "check-in", "abordado", "finalizado", "cancelado"] })
+  estado_ticket?: string;
 
   @CreateDateColumn({ name: "fecha_emision", type: "datetime" })
   fecha_emision?: Date;
@@ -29,9 +23,9 @@ export class TicketsEntity {
   @JoinColumn({ name: "id_reserva" })
   reserva?: ReservaEntity;
 
-  @ManyToOne(() => VueloEntity, (vuelo) => vuelo.cod_vuelo)
+  @OneToOne(() => Vuelo, (vuelo) => vuelo.cod_vuelo)
   @JoinColumn({ name: "cod_vuelo" })
-  vuelo!: VueloEntity;
+  vuelo: Vuelo;
 
   @OneToOne(() => PasajeroEntity, (pasajero) => pasajero.id_pasajero,)
   @JoinColumn({ name: "id_pasajero" })
