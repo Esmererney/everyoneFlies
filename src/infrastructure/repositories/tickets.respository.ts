@@ -22,7 +22,7 @@ export class TicketsRepository {
         select:{
           id_ticket:true,
           id_reserva: true,
-          cod_vuelo: true,
+          id_vuelo: true,
           id_pasajero: true,
           fecha_emision:true,
           estado_ticket:true,
@@ -40,7 +40,7 @@ export class TicketsRepository {
   actualizar(tickets: TicketsEntity) {
       return this.repository.update(tickets.id_ticket, {
        
-        cod_vuelo: tickets.cod_vuelo,
+        id_vuelo: tickets.id_vuelo,
         id_pasajero: tickets.id_pasajero,
         fecha_emision: tickets.fecha_emision,
         estado_ticket: tickets.estado_ticket,
