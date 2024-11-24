@@ -20,7 +20,7 @@ export class ReservaRepository {
       return this.repository.findOne({
         select:{
           id_reserva: true,
-          cod_vuelo: true,
+          id_vuelo: true,
           fecha_reserva: true,
           estado_reserva:true,
           cantidad_pasajeros:true,
@@ -38,7 +38,7 @@ export class ReservaRepository {
   actualizar(reserva: ReservaEntity) {
       return this.repository.update(reserva.id_reserva, {
        
-        cod_vuelo: reserva.cod_vuelo,
+        id_vuelo: reserva.id_vuelo,
         fecha_reserva: reserva.fecha_reserva,
         estado_reserva: reserva.estado_reserva,
         cantidad_pasajeros: reserva.cantidad_pasajeros

@@ -11,7 +11,7 @@ export class ReservaEntity {
   id_reserva!: number;
 
   @Column()
-  cod_vuelo?: string;
+  id_vuelo?: string;
 
   @CreateDateColumn({ name: "fecha_reserva", type: "datetime" })
   fecha_reserva?: Date;
