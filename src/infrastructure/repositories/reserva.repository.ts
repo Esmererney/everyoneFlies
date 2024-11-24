@@ -54,5 +54,12 @@ export class ReservaRepository {
       })
   }
 
+  reservaExistente(id_reserva: number) {
+    return this.repository.findOne({
+        where: { id_reserva: id_reserva },
+        relations: ['pasajeroReservas', 'vuelo'], // Esto asegura que cargue la relación
+      });
+  }
+
 
 }

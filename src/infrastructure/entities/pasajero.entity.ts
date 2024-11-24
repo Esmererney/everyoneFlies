@@ -27,7 +27,7 @@ export class PasajeroEntity {
     id_pasaporte: string
 
     @OneToMany(() => pasajeroReservaEntity, (reserva) => reserva.pasajero)
-    reservas?: pasajeroReservaEntity; 
+    pasajerosReserva?: pasajeroReservaEntity; 
     
     @OneToOne(() => TicketsEntity, (ticket) => ticket.pasajero)
     ticket?: TicketsEntity; 

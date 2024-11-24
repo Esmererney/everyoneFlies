@@ -1,3 +1,4 @@
+
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 import { CategoriaEntity } from "./categorias.entity";
 import { VueloEntity } from "./vuelos.entity";
@@ -35,7 +36,10 @@ export class AsientoEntity {
   // @JoinColumn({ name: "id_precio_temporal" })
   // precio_temporal?: PreciosTemporalesEntity;
   
-  // // Clave foránea que conecta con la tabla Categoria
+  // Clave foránea que conecta con la tabla Categoria
+
+  @Column()
+  id_categoria?: number;
   
   @ManyToOne(() => CategoriaEntity, (categoria) => categoria.id_categoria ) //  { eager: false } trae los datos internos 
   @JoinColumn({ name: "id_categoria" })

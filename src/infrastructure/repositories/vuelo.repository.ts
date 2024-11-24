@@ -21,7 +21,7 @@ export class vueloRepository implements CRUD {
   }
 
   async obtenerPorCodVuelo(id: string) {
-    const vuelo = await this.repositoryPgs.findOneBy({ cod_vuelo: id });
+    const vuelo = await this.repository.findOneBy({ cod_vuelo: id });
     return vuelo != null ? vuelo : null;
   }
 
