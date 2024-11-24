@@ -31,5 +31,5 @@ export class pasajeroReservaEntity {
     
     @ManyToOne(() => AsientoEntity, (asinto) => asinto.id_asiento)
     @JoinColumn({name: "id_asiento"})
-    asinto?: AsientoEntity;
+    asiento?: AsientoEntity;
 }

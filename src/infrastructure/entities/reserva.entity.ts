@@ -11,7 +11,7 @@ export class ReservaEntity {
   id_reserva!: number;
 
   @Column()
-  cod_vuelo?: string;
+  id_vuelo?: string;
 
   @CreateDateColumn({ name: "fecha_reserva", type: "datetime" })
   fecha_reserva?: Date;
@@ -26,7 +26,7 @@ export class ReservaEntity {
   precio_total?: number;
 
   @ManyToOne(() => VueloEntity, vuelo => vuelo.reservas)
-  @JoinColumn({ name: 'cod_vuelo', referencedColumnName: 'id_vuelo' }) // Referencia la columna 'cod_vuelo' en Vuelo
+  @JoinColumn({ name: 'id_vuelo', referencedColumnName: 'id_vuelo' }) // Referencia la columna 'cod_vuelo' en Vuelo
   vuelo!: VueloEntity;
 
   @OneToMany(() => pasajeroReservaEntity, pasajeroReservas => pasajeroReservas.reserva)

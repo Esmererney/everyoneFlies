@@ -51,14 +51,4 @@ export class VueloController {
     return  result
   }
   
-}
-
-
-
-
-
-
- 
-
-
-
+} 

@@ -32,12 +32,12 @@ export class ReservaController {
 
 
   // Crear una nueva reserva
-  async crearReserva(data : {id_pasajero: number, cod_vuelo: string, cantidad_pasajeros: number, categoria: string, precio_subtotal: number, precio_total: number }) {
+  async crearReserva(data : {id_pasajero: number, id_vuelo: string, cantidad_pasajeros: number, categoria: string, precio_subtotal: number, precio_total: number }) {
     const reservaRepository = AppDataSourceMysql.getRepository(ReservaEntity);
 
     // Verificar si el vuelo existe
-    const cod_vuelo = data.cod_vuelo
-    const vuelo = await this.vueloRepository.obtenerPorId(Number(cod_vuelo));
+    const id_vuelo = data.id_vuelo
+    const vuelo = await this.vueloRepository.obtenerPorId(Number(id_vuelo));
     if (!vuelo) {
       throw new Error("Vuelo no encontrado");
     }
@@ -63,7 +63,7 @@ export class ReservaController {
     
     // Consultar los asientos disponibles para el vuelo y la categoría
     const detallesAsientos = await this.asientoRepository.obtenerDetallesAsientosDisponibles(
-      vuelo.cod_vuelo,
+      vuelo.id_vuelo,
       id_categoria,
       data.cantidad_pasajeros
     );
@@ -113,6 +113,9 @@ export class ReservaController {
   async actualizarReserva(data: {id_reserva: number, id_pasajero: number, cantidad_pasajeros: number, categoria: string, precio_subtotal: number, precio_total: number}) {
     // Verificar si la reserva existe
     const reservaExistente = await this.repository.reservaExistente(data.id_reserva);
+
+    console.log('reservaExistente', reservaExistente);
+    
     
     if (!reservaExistente || reservaExistente == null) {
       throw new Error("Reserva no encontrada");
@@ -123,7 +126,6 @@ export class ReservaController {
     if (!vuelo) {
       throw new Error("Vuelo no encontrado");
     }
-
   
     // Verificar si la cantidad de asientos es mayor o menor
     const diferenciaAsientos = data.cantidad_pasajeros - reservaExistente.pasajeroReservas.length;
@@ -142,7 +144,7 @@ export class ReservaController {
   
     // Consultar los asientos disponibles para la categoría y cantidad
     const detallesAsientosDisponibles = await this.asientoRepository.obtenerDetallesAsientosDisponibles(
-      vuelo.cod_vuelo,
+      vuelo.id_vuelo,
       id_categoria,
       Math.abs(diferenciaAsientos)
     );
@@ -182,7 +184,7 @@ export class ReservaController {
   
       for (const pasajeroReserva of asientosAEliminar) {
         // Actualizar el estado de los asientos a disponible
-        const asiento = pasajeroReserva.asinto;
+        const asiento = pasajeroReserva.asiento;
         if (asiento) {
           asiento.disponible = true;
           await this.asientoRepository.actualizarAsiento(asiento);
