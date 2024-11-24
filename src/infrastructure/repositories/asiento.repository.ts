@@ -1,5 +1,4 @@
 import { AsientoEntity } from "../entities/asientos.entity";
-import { AppDataSourcePgs } from "../db/source.orm.pgs";
 import { AppDataSourceMysql } from "../db/source.orm";
 import { VueloEntity } from "../entities/vuelos.entity";
 
@@ -77,7 +76,7 @@ export class AsientoRepository {
   }
 
    // Obtener asiento disponible
-   async obtenerAsientoDis(id_vuelo: string, id_categoria_asiento: number) {
+   async obtenerAsientoDis(id_vuelo: number, id_categoria_asiento: number) {
     console.log(id_vuelo);
     console.log(id_categoria_asiento);
     
@@ -91,7 +90,7 @@ export class AsientoRepository {
     return asiento;
   }
 
-  async obtenerDetallesAsientosDisponibles(id_vuelo: string, id_categoria: number, cantidad: number) {
+  async obtenerDetallesAsientosDisponibles(id_vuelo: number, id_categoria: number, cantidad: number) {
     return this.asientoRepo.find({
         where: {
             id_vuelo,

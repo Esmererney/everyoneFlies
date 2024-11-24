@@ -1,5 +1,4 @@
 import Express from "express";
-import { AppDataSourcePgs } from "./src/infrastructure/db/source.orm.pgs";
 import { routes } from "./src/infrastructure/modules/api-rest/routers/index.router";
 import middleware404 from "./src/infrastructure/modules/api-rest/middleware/middleware-404";
 import { AppDataSourceMysql } from "./src/infrastructure/db/source.orm";

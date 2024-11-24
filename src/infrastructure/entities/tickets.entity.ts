@@ -12,8 +12,8 @@ export class TicketsEntity {
   @Column({ name: "id_reserva", type: "int"})
   id_reserva!: number;
 
-  @Column({ name: "cod_vuelo", type: "varchar"})
-  cod_vuelo!: string;
+  @Column({ name: "id_vuelo", type: "varchar"})
+  id_vuelo!: string;
 
   @Column({ name: "id_pasajero", type: "int"})
   id_pasajero!: number;

@@ -12,7 +12,7 @@ export class AsientoEntity {
 
   // Clave foránea que conecta cada asiento con un vuelo específico usando id_vuelo
   @Column()
-  id_vuelo?: string; 
+  id_vuelo?: number; 
 
   // Relación ManyToOne con Vuelo
   @ManyToOne(() => VueloEntity, (vuelo) => vuelo.id_vuelo)
