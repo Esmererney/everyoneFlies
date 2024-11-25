@@ -31,7 +31,7 @@ export class vueloRepository implements CRUD {
       cod_vuelo: datos.cod_vuelo,
     });
     if (vueloExistente) {
-      return "Le vuelo ya existe"; // Retorna null si el código ya está en uso
+      return "El vuelo ya existe"; // Retorna null si el código ya está en uso
     } else {
       return this.repository.insert(vuelo);
       // return this.repositoryPgs.save(vuelo);

@@ -22,6 +22,7 @@ export class AsientoRepository {
   async agregarAsiento(datos: AsientoEntity) {
     const asiento = this.asientoRepo.create(datos);
 
+
     const vuelo = await this.vuelosRepo.findOne({
       where: { id_vuelo : datos.id_vuelo },
       select: ["id_vuelo", "total_asientos"]});
@@ -34,13 +35,15 @@ export class AsientoRepository {
     if (asientosActuales >= vuelo.total_asientos! ) {
       throw new Error("No se pueden agregar más asientos para este vuelo, ya alcanzó el límite permitido");
     }
+    
 
+    
 
     const asientoExistente = await this.asientoRepo.findOneBy({ id_vuelo: datos.id_vuelo, numero_asiento: datos.numero_asiento });
     if (asientoExistente) {
       return null; // Retorna null si el asiento ya está en uso (mismo vuelo y número de asiento)
     } else {
-      console.log('guardar', this.asientoRepo.save(asiento));
+      // return this.asientoRepo.insert(asiento);
       return this.asientoRepo.save(asiento);
     }
     
