@@ -9,7 +9,7 @@ export class VueloEntity {
   id_vuelo: number = 0 ;
 
   @Column()
-  cod_vuelo!: number;
+  cod_vuelo!: string;
 
   @Column()
   aerolinea?: string;

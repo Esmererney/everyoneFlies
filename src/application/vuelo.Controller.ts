@@ -3,7 +3,7 @@ import { vueloRepository } from "../infrastructure/repositories/vuelo.repository
 import { CategoriaRepository } from "../infrastructure/repositories/categoria.repository";
 import { AsientoRepository } from "../infrastructure/repositories/asiento.repository";
 import { AsientoEntity } from "../infrastructure/entities/asientos.entity";
-
+import { Vuelo } from "../domain/models/vuelo.interface";
 
 export class VueloController {
 
@@ -117,5 +117,61 @@ export class VueloController {
     const result = await this.repository.eliminar(id);
     return  result
   }
+
+  async actualizarParcial(id: number, datos: Partial<VueloEntity>) {
+    // Validar campos permitidos
+    const camposPermitidos = [
+      "cod_vuelo", "aerolinea", "origen_aeropuerto", "destino_aeropuerto",
+      "fecha_salida", "fecha_llegada", "duracion", "total_asientos",
+      "asientos_disponibles", "estado_vuelo", "precio_base_vuelo"
+    ];
+  
+    // Verificar que los campos enviados sean válidos
+    for (const key in datos) {
+      if (!camposPermitidos.includes(key)) {
+        return { ok: false, message: `El campo ${key} no es permitido para actualización` };
+      }
+    }
+  
+    // Validar el formato de fecha (si se incluye)
+    if (datos.fecha_salida && isNaN(Date.parse(datos.fecha_salida.toString()))) {
+      return { ok: false, message: "El formato de fecha_salida no es válido" };
+    }
+    if (datos.fecha_llegada && isNaN(Date.parse(datos.fecha_llegada.toString()))) {
+      return { ok: false, message: "El formato de fecha_llegada no es válido" };
+    }
+  
+    // Buscar el vuelo en la base de datos
+    const vuelo = await this.repository.obtenerPorId(id);
+    console.log(vuelo)
+    if (!vuelo) {
+      return { ok: false, message: "Vuelo no encontrado" };
+    }
+  
+    // Actualizar solo los campos enviados
+    for (const key of Object.keys(datos) as (keyof VueloEntity)[]) {
+      (vuelo as any)[key] = datos[key];
+    }
+  
+    // Guardar los cambios en la base de datos
+    const resultado = await this.repository.actualizar(vuelo);
+  
+    if (resultado) {
+      return { ok: true, message: "Vuelo actualizado exitosamente", vuelo };
+    } else {
+      return { ok: false, message: "No se pudo actualizar el vuelo" };
+    }
+  }
+ 
+
+  //funciones del cliente
+  async buscarVuelos(origen: string, destino: string, fecha: Date) {
+    const vuelos = await this.repository.buscarPorCriterios(origen, destino, fecha);
+    if (vuelos) {
+      return { ok: true, vuelos };
+    } else {
+      return { ok: false, message: "No hay vuelos disponibles para los criterios proporcionados" };
+    }
+  }  
   
 } 

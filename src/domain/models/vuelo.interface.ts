@@ -1,6 +1,6 @@
 export interface Vuelo {
     id_vuelo: number;
-    cod_vuelo?: string;
+    cod_vuelo?: number;
     aerolinea?: string;
     origen_aeropuerto?: string;
     destino_aeropuerto?: string;
@@ -10,5 +10,6 @@ export interface Vuelo {
     total_asientos?: number;
     asientos_disponibles?: number;
     estado_vuelo?: string;
+    precio_base_vuelo?: number;
 }
   

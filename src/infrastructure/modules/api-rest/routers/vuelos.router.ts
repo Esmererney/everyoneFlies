@@ -75,6 +75,47 @@ export const RutasVuelo = () => {
     }
   });
 
+  router.patch("/vuelos/:id", async (req, res) => {
+    try {
+      const idStr = req.params.id;
+      const id = parseInt(idStr);
+  
+      if (Number.isNaN(id)) {
+        res.status(400).send({ ok: false, message: "El ID proporcionado no es válido" });
+        return;
+      }
+  
+      const datos = req.body;
+  
+      const resultado = await vueloCtrl.actualizarParcial(id, datos);
+      if (resultado.ok) {
+        res.status(200).send(resultado);
+      } else {
+        res.status(400).send(resultado);
+      }
+    } catch (error) {
+      console.error("Error al actualizar vuelo:", error);
+      res.status(500).send({ ok: false, message: "Error interno del servidor", error });
+    }
+  });
+
+
+  //Ruta del cliente
+  router.post("/vuelos/buscar", async (req, res) => {
+    const { origen_aeropuerto, destino_aeropuerto, fecha_salida } = req.body;
+
+    if (!origen_aeropuerto || !destino_aeropuerto || !fecha_salida) {
+      res.status(400).send({ ok: false, message: "Faltan parámetros de búsqueda" });
+    }
+  
+    try {
+      const result = await vueloCtrl.buscarVuelos(origen_aeropuerto, destino_aeropuerto, fecha_salida);
+      res.status(200).send(result);
+    } catch (error) {
+      res.status(500).send({ ok: false, message: "Error al buscar vuelos", error });
+    }
+  });
+
 
   return router;
 

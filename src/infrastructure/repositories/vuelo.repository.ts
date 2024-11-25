@@ -5,6 +5,7 @@ import { AppDataSourceMysql } from "../db/source.orm";
 
 export class vueloRepository implements CRUD {
   
+  
   private repository: Repository<VueloEntity>;
 
   constructor() {
@@ -20,7 +21,7 @@ export class vueloRepository implements CRUD {
     return vuelo != null ? vuelo : null;
   }
 
-  async obtenerPorCodVuelo(id: number) {
+  async obtenerPorCodVuelo(id: string) {
     const vuelo = await this.repository.findOneBy({ cod_vuelo: id });
     return vuelo != null ? vuelo : null;
   }
@@ -69,5 +70,18 @@ export class vueloRepository implements CRUD {
       return null;
     }
   }
+
+  //funciones del cliente
+  async buscarPorCriterios(origen: string, destino: string, fecha: Date) {
+    const vuelos = await this.repository.find({
+      where: {
+        origen_aeropuerto: origen,
+        destino_aeropuerto: destino,
+        fecha_salida: fecha,
+      },  
+    });
+    return vuelos.length > 0 ? vuelos : null;
+  }
+  
 
 }
