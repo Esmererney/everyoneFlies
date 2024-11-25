@@ -1,5 +1,5 @@
 import { VueloEntity } from "../infrastructure/entities/vuelos.entity";
-import { vueloRepository } from "../infrastructure/repositories/vuelo.repository";
+import { VueloRepository } from "../infrastructure/repositories/vuelo.repository";
 import { CategoriaRepository } from "../infrastructure/repositories/categoria.repository";
 import { AsientoRepository } from "../infrastructure/repositories/asiento.repository";
 import { AsientoEntity } from "../infrastructure/entities/asientos.entity";
@@ -7,10 +7,10 @@ import { Vuelo } from "../domain/models/vuelo.interface";
 
 export class VueloController {
 
-  private repository: vueloRepository ;
+  private repository: VueloRepository ;
 
   constructor() {
-    this.repository = new vueloRepository();
+    this.repository = new VueloRepository();
   }
 
   // async agregar( vuelo : VueloEntity ) { 

@@ -48,8 +48,6 @@ export class PrecioTemporalesRepository implements CRUD {
       }
   }
 
-
-
   async eliminar(id: number) {
     const vuelo = await this.repositoryPgs.findOneBy({ id_temporada : id });
     if (vuelo) {
@@ -59,5 +57,15 @@ export class PrecioTemporalesRepository implements CRUD {
       console.log('Vuelo no encontrado');
       return null;
     }
+  }
+
+  async obtenerPorCondiciones(condiciones: { temporada: string, disponibilidad: string, demanda: string }) {
+    return this.repositoryPgs.findOne({
+        where: {
+            temporada: condiciones.temporada,
+            disponibilidad: condiciones.disponibilidad,
+            demanda: condiciones.demanda
+        }
+    });
   }
 }

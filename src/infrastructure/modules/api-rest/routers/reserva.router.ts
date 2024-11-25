@@ -9,7 +9,7 @@ import { ReservaController } from "../../../../application/reserva.controller"
 export const RutasReserva = () => {
   
   const router = Express.Router();
-   const reservaCtrl = new ReservaController();
+  const reservaCtrl = new ReservaController();
 
   router.get("/reserva", (req, res) => { 
     reservaCtrl.obtener().then((result) => {

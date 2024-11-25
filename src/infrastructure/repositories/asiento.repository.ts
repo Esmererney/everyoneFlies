@@ -35,9 +35,6 @@ export class AsientoRepository {
     if (asientosActuales >= vuelo.total_asientos! ) {
       throw new Error("No se pueden agregar más asientos para este vuelo, ya alcanzó el límite permitido");
     }
-    
-
-    
 
     const asientoExistente = await this.asientoRepo.findOneBy({ id_vuelo: datos.id_vuelo, numero_asiento: datos.numero_asiento });
     if (asientoExistente) {
@@ -102,5 +99,24 @@ export class AsientoRepository {
         },
         take: cantidad, // Esto limita la cantidad de registros a devolver
     });
-}
+  }
+
+  async obtenerAsientosDisponiblesCategoria(id_vuelo: number, id_categoria: number) {
+    return this.asientoRepo.find({
+        where: {
+            id_vuelo,
+            id_categoria,
+            disponible: true,
+        },
+    });
+  }
+
+  async obtenerAsientosCategoria(id_vuelo: number, id_categoria: number) {
+    return this.asientoRepo.find({
+        where: {
+            id_vuelo,
+            id_categoria,
+        },
+    });
+  }
 }

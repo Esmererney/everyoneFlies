@@ -30,7 +30,7 @@ export class VueloEntity {
     duracion?: number;
 
   @Column()
-    total_asientos?: number;
+    total_asientos!: number;
 
   @Column()
     asientos_disponibles!: number;

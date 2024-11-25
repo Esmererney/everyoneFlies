@@ -3,7 +3,7 @@ import { VueloEntity as VueloEntity } from "../entities/vuelos.entity";
 import { CRUD } from "../../domain/crud";
 import { AppDataSourceMysql } from "../db/source.orm";
 
-export class vueloRepository implements CRUD {
+export class VueloRepository implements CRUD {
   
   
   private repository: Repository<VueloEntity>;
