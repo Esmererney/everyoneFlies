@@ -42,7 +42,3 @@ export const AppDataSourceMysql = new DataSource({
 
 
 })
-
-
-
-

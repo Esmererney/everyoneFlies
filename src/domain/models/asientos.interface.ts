@@ -1,6 +1,6 @@
 import { Vuelo } from "./vuelo.interface";
 import { PrecioTemporal } from "./precios_temporales.interface";
-import { Categoria } from "./categorias.interface";
+// import { Categoria } from "./categorias.interface";
 
 export interface Asiento {
   id_asiento: number;

@@ -21,9 +21,9 @@ export class pasajeroReservaEntity {
     @Column({name: "precio_subtotal", type: "int"})
     precio_subtotal?:number
     
-    @ManyToOne(() => ReservaEntity, (reserva) => reserva.id_reserva)
-    @JoinColumn({name: "id_reserva"})
-    reserva?: ReservaEntity
+    @ManyToOne(() => ReservaEntity, reserva => reserva.pasajeroReservas)
+    @JoinColumn({ name: 'id_reserva', referencedColumnName: 'id_reserva' }) // Relación con Reserva
+    reserva!: ReservaEntity;
 
     @ManyToOne(() => PasajeroEntity, (pasajero) => pasajero.id_pasajero)
     @JoinColumn({name: "id_pasajero"})
@@ -31,5 +31,5 @@ export class pasajeroReservaEntity {
     
     @ManyToOne(() => AsientoEntity, (asinto) => asinto.id_asiento)
     @JoinColumn({name: "id_asiento"})
-    asinto?: AsientoEntity;
+    asiento?: AsientoEntity;
 }

@@ -10,10 +10,10 @@ export class PreciosTemporalesEntity  {
   temporada?: string;
 
   @Column()
-  demanda?: number;
+  demanda?: string;
 
   @Column()
-  disponibilidad?: number;
+  disponibilidad?: string;
 
   @Column()
   porcentaje_final?: number;

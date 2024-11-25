@@ -1,5 +1,4 @@
 import { Repository } from "typeorm";
-import { AppDataSourcePgs } from "../db/source.orm.pgs";
 import { CRUD } from "../../domain/crud";
 import { PreciosTemporalesEntity } from "../entities/precios_temporales.entity";
 import { AppDataSourceMysql } from "../db/source.orm";

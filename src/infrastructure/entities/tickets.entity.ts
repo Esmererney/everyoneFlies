@@ -12,9 +12,8 @@ export class TicketsEntity {
   @Column({ name: "id_reserva", type: "int"})
   id_reserva!: number;
 
-  
-  @Column({ name: "cod_vuelo", type: "varchar"})
-  cod_vuelo!: string;
+  @Column({ name: "id_vuelo", type: "varchar"})
+  id_vuelo!: string;
 
   @Column({ name: "id_pasajero", type: "int"})
   id_pasajero!: number;
@@ -30,8 +29,8 @@ export class TicketsEntity {
   @JoinColumn({ name: "id_reserva" })
   reserva?: ReservaEntity;
 
-  @ManyToOne(() => VueloEntity, (vuelo) => vuelo.cod_vuelo)
-  @JoinColumn({ name: "cod_vuelo" })
+  @ManyToOne(() => VueloEntity, (vuelo) => vuelo.id_vuelo)
+  @JoinColumn({ name: "id_vuelo" })
   vuelo!: VueloEntity;
 
   @OneToOne(() => PasajeroEntity, (pasajero) => pasajero.id_pasajero,)

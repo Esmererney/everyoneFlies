@@ -1,15 +1,15 @@
 import { Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany, ManyToOne } from "typeorm";
-import { TicketsEntity } from "./tickets.entity";
+import { ReservaEntity } from "./reserva.entity";
 
 @Entity("vuelos")
 @Unique(["cod_vuelo"])
 export class VueloEntity {
   
   @PrimaryGeneratedColumn()
-  id_vuelo : number = 0 ;
+  id_vuelo: number = 0 ;
 
   @Column()
-  cod_vuelo?: string;
+  cod_vuelo!: number;
 
   @Column()
   aerolinea?: string;
@@ -33,7 +33,7 @@ export class VueloEntity {
     total_asientos?: number;
 
   @Column()
-    asientos_disponibles?: number;
+    asientos_disponibles!: number;
 
   @Column()
     estado_vuelo?: string;
@@ -47,5 +47,7 @@ export class VueloEntity {
 
   // @OneToMany(() => TicketsEntity, (ticket) => ticket.vuelo)
   // tickets!: TicketsEntity[];
-  
+  @OneToMany(() => ReservaEntity, reserva => reserva.vuelo)
+  reservas!: ReservaEntity[];
+
 }
