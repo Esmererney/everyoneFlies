@@ -38,6 +38,8 @@ export class VueloEntity {
   @Column()
     estado_vuelo?: string;
 
+  @Column()
+    precio_base_vuelo?: number;
   // @OneToMany(() => Asiento, (asiento) => asiento.asientos)
   // asientos: AsientoEntity = {} as Asiento;
 

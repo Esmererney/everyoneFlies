@@ -11,7 +11,7 @@ export class CategoriaEntity {
   nombre_categoria?: string;
 
   @Column("decimal")
-  precio_base?: number;
+  porcentaje_categoria?: number;
 
 
   @OneToMany(() => AsientoEntity, (asiento) => asiento.id_categoria_asiento)

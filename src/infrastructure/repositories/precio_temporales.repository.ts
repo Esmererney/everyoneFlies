@@ -38,7 +38,7 @@ export class PrecioTemporalesRepository implements CRUD {
         temporada : datos.temporada,
         demanda : datos.demanda,
         disponibilidad : datos.disponibilidad,
-        porcentaje_final : datos.porcentaje_final,  
+        porcentaje_temporal: datos.porcentaje_temporal,  
       });
   
       if (result.affected && result.affected > 0) {
