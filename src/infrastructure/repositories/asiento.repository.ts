@@ -13,7 +13,7 @@ export class AsientoRepository {
   }
 
   // Obtener un asiento por su id
-  async obtenerAsientoPorId(idAsiento: number) {
+  async obtenerAsientoPorId(idAsiento: number | undefined) {
     const asiento = await this.asientoRepo.findOneBy({ id_asiento: idAsiento });
     return asiento != null ? asiento : null;
   }
@@ -21,6 +21,7 @@ export class AsientoRepository {
   // Agregar un nuevo asiento
   async agregarAsiento(datos: AsientoEntity) {
     const asiento = this.asientoRepo.create(datos);
+
 
     const vuelo = await this.vuelosRepo.findOne({
       where: { id_vuelo : datos.id_vuelo },
@@ -35,11 +36,11 @@ export class AsientoRepository {
       throw new Error("No se pueden agregar más asientos para este vuelo, ya alcanzó el límite permitido");
     }
 
-
     const asientoExistente = await this.asientoRepo.findOneBy({ id_vuelo: datos.id_vuelo, numero_asiento: datos.numero_asiento });
     if (asientoExistente) {
       return null; // Retorna null si el asiento ya está en uso (mismo vuelo y número de asiento)
     } else {
+      // return this.asientoRepo.insert(asiento);
       return this.asientoRepo.save(asiento);
     }
     
@@ -98,5 +99,24 @@ export class AsientoRepository {
         },
         take: cantidad, // Esto limita la cantidad de registros a devolver
     });
-}
+  }
+
+  async obtenerAsientosDisponiblesCategoria(id_vuelo: number, id_categoria: number) {
+    return this.asientoRepo.find({
+        where: {
+            id_vuelo,
+            id_categoria,
+            disponible: true,
+        },
+    });
+  }
+
+  async obtenerAsientosCategoria(id_vuelo: number, id_categoria: number) {
+    return this.asientoRepo.find({
+        where: {
+            id_vuelo,
+            id_categoria,
+        },
+    });
+  }
 }

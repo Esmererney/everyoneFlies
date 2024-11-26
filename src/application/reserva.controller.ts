@@ -1,7 +1,7 @@
 import { ReservaEntity } from "../infrastructure/entities/reserva.entity";
 import { pasajeroReservaEntity } from "../infrastructure/entities/pasajero_reserva.entity";
 import { ReservaRepository } from "../infrastructure/repositories/reserva.repository";
-import { vueloRepository } from "../infrastructure/repositories/vuelo.repository";
+import { VueloRepository } from "../infrastructure/repositories/vuelo.repository";
 import { PasajeroRepository } from "../infrastructure/repositories/pasajero.repository";
 import { PasajeroReservaRepository } from "../infrastructure/repositories/pasajero_reserva.repository";
 import { AsientoRepository } from "../infrastructure/repositories/asiento.repository";
@@ -15,7 +15,7 @@ import { VueloEntity } from "../infrastructure/entities/vuelos.entity";
 export class ReservaController {
 
   private repository: ReservaRepository ;
-  private vueloRepository: vueloRepository;
+  private vueloRepository: VueloRepository;
   private pasajeroRepository: PasajeroRepository;
   private asientoRepository: AsientoRepository;
   private categoriaRepository: CategoriaRepository;
@@ -23,7 +23,7 @@ export class ReservaController {
 
   constructor() {
     this.repository = new ReservaRepository();
-    this.vueloRepository = new vueloRepository();
+    this.vueloRepository = new VueloRepository();
     this.pasajeroRepository = new PasajeroRepository();
     this.asientoRepository = new AsientoRepository();
     this.categoriaRepository = new CategoriaRepository();

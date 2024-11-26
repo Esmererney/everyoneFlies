@@ -2,6 +2,7 @@ import { AppDataSourceMysql } from "../db/source.orm";
 import { TicketsEntity } from "../entities/tickets.entity";
 import { AppDataSource } from "./config/data-source-orm";
 import{Repository} from "typeorm"
+
 export class TicketsRepository {
   repository: Repository<TicketsEntity>;
 
@@ -10,8 +11,17 @@ export class TicketsRepository {
   }
 
   agregar(tickets: TicketsEntity) {
-      return this.repository.save(tickets)
+       return this.repository.save(tickets)
+     
   }
+
+  async obtenerProIdReservaEntickes(id_reserva: number){
+      const resultados = await this.repository.find({
+        where: { id_reserva: id_reserva }
+    });
+    return resultados;
+    
+ }
 
   obtener(){
       return this.repository.find()
@@ -39,7 +49,6 @@ export class TicketsRepository {
 
   actualizar(tickets: TicketsEntity) {
       return this.repository.update(tickets.id_ticket, {
-       
         id_vuelo: tickets.id_vuelo,
         id_pasajero: tickets.id_pasajero,
         fecha_emision: tickets.fecha_emision,

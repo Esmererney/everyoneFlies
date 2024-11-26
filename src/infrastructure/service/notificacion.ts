@@ -1,23 +1,31 @@
 import nodemailer from 'nodemailer';
+import { Pasajero } from '../../domain/models/pasajero.interface';
 
 // Configura el transportador (transport) con los datos de tu servicio SMTP
 const transporter = nodemailer.createTransport({
   service: 'gmail', // Puedes usar 'hotmail', 'yahoo', etc.
   auth: {
-    user: '@gmail.com',
-    pass: 'tu-contraseña-de-app'
+    user: 'everyonefliesaerolinea@gmail.com',
+    pass: 'tioe gucd irui ajnv'
   }
 });
 
 // Función para enviar el correo
-async function enviarCorreo() {
+export async function enviarCorreo(email :string | undefined , pasajero: any , attachmentPath : string) {
   try {
     const info = await transporter.sendMail({
-      from: '"Nombre Remitente" <tu-email@gmail.com>', // Dirección y nombre del remitente
-      to: 'destinatario@example.com', // Destinatario
-      subject: 'Asunto del Correo',
-      text: 'Contenido en texto plano',
-      html: '<b>Contenido en HTML</b>' // Puedes usar HTML para dar formato
+      from: 'everyonefliesaerolinea@gmail.com', // Dirección y nombre del remitente
+      to: email, // Destinatario
+      subject: 'Pase de Abordar',
+      text: 'Aquí está su pase de abordar. ¡Buen vuelo!',
+      attachments: [
+        {
+          filename: "tickets-" + pasajero.nombre +".pdf"  ,
+           path: attachmentPath, // Ruta del archivo PDF generado
+        },
+      ],
+      html: '<b>Hola :  </b> ' + pasajero.nombre + " " + pasajero.apellido 
+      + ' <b> Te hacemos el envio de parte de nuestra entidad gracias  </b>'  // Puedes usar HTML para dar formato
     });
 
     console.log('Correo enviado:', info.messageId);
@@ -26,4 +34,4 @@ async function enviarCorreo() {
   }
 }
 
-enviarCorreo();
+// enviarCorreo();

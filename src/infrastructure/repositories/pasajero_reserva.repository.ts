@@ -14,6 +14,13 @@ export class PasajeroReservaRepository {
         return this.repository.save(pasajero)
     }
 
+    async obtenerPorReserva(id_reserva: number){
+        const resultados = await this.repository.find({
+            where: { id_reserva: id_reserva }
+        });
+        return resultados;
+    }
+
     obtener(){
         return this.repository.find()
     }
