@@ -6,6 +6,7 @@ import { RutasVuelo } from "./vuelos.router";
 import { RutasAsiento } from "./asientos.router";
 import { RutasCategoria } from "./categorias.router";
 import { RutasPreciosTemporales } from "./precios_temporales.router";
+import { RutasSeleccionarCategoria } from "./seleccionar_categoria.router";
 
 export const routes = () => {
   const router = Express.Router();
@@ -20,6 +21,7 @@ export const routes = () => {
   router.use(RutasAsiento());
   router.use(RutasCategoria());
   router.use(RutasPreciosTemporales());
+  router.use(RutasSeleccionarCategoria());
 
   return router;
 };

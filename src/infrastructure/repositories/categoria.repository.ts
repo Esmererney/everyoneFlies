@@ -31,7 +31,7 @@ export class CategoriaRepository {
   async actualizarCategoria(datos: CategoriaEntity) {
     const result = await this.categoriaRepo.update(datos.id_categoria, {
       nombre_categoria: datos.nombre_categoria,
-      precio_base: datos.precio_base,
+      porcentaje_categoria: datos.porcentaje_categoria,
     });
 
     if (result.affected && result.affected > 0) {

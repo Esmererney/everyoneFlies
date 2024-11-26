@@ -9,7 +9,7 @@ export class VueloEntity {
   id_vuelo: number = 0 ;
 
   @Column()
-  cod_vuelo!: number;
+  cod_vuelo!: string;
 
   @Column()
   aerolinea?: string;
@@ -30,7 +30,7 @@ export class VueloEntity {
     duracion?: number;
 
   @Column()
-    total_asientos?: number;
+    total_asientos!: number;
 
   @Column()
     asientos_disponibles!: number;
@@ -38,6 +38,8 @@ export class VueloEntity {
   @Column()
     estado_vuelo?: string;
 
+  @Column()
+    precio_base_vuelo?: number;
   // @OneToMany(() => Asiento, (asiento) => asiento.asientos)
   // asientos: AsientoEntity = {} as Asiento;
 

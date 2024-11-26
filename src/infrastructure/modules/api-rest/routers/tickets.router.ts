@@ -12,6 +12,52 @@ export const RutasTicket = () => {
    const ticketCtrl = new TicketsController();
 
 
+  // obtener todos los tickets
+
+  // swagger:
+  /** 
+   * @swagger
+   * /tickets:
+   *   get: 
+   *     description: Obtiene todos los tickets
+   *     produces:
+   *       - application/json
+   *     responses:
+   *       200:
+   *         description: Tickets obtenidos
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 type: object
+   *               properties:
+   *                 id_ticket: 
+   *                   type: number
+   *                   description: ID del ticket
+   *                 id_reserva: 
+   *                   type: number
+   *                   description: ID de la reserva al que pertenece el ticket
+   *                 id_vuelo: 
+   *                   type: number
+   *                   description: ID del vuelo al que pertenece el ticket
+   *                 id_pasajero: 
+   *                   type: number
+   *                   description: ID del pasajero al que pertenece el ticket
+   *                 fecha_emision: 
+   *                   type: fecha
+   *                   description: Fecha de emisión del ticket
+   *                 estado_ticket:
+   *                   type: string
+   *                   description: Estado del ticket
+   *       500:
+   *         description: Error al obtener los tickets
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   */
+
    
    router.post("/check", async (req, res) => {
     try {
@@ -36,6 +82,46 @@ export const RutasTicket = () => {
     });
   });
 
+
+
+
+
+  //swagger:
+  /** 
+   * @swagger
+   * /tickets:
+   *   post:
+   *     description: Agrega un nuevo ticket
+   *     tags:
+   *       - Tickets
+   *     requestBody:
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object 
+   *             properties:
+   *               id_reserva:
+   *                 type: number
+   *                 description: ID de la reserva al que pertenece el ticket
+   *               id_vuelo:
+   *                 type: number
+   *                 description: ID del vuelo al que pertenece el ticket
+   *               id_pasajero:
+   *                 type: number
+   *                 description: ID del pasajero al que pertenece el ticket
+   *               fecha_emision:
+   *                 type: fecha
+   *                 description: Fecha de emisión del ticket
+   *               estado_ticket:
+   *                 type: string
+   *                 description: Estado del ticket
+   *     produces:
+   *       - application/json
+   *     responses:
+   *       201:
+   *         description: Ticket creado
+   *   
+   */
   router.post("/ticket", (req, res) => { 
     const payload = req.body;
     ticketCtrl.agregar(payload).then((result) => {
@@ -46,6 +132,54 @@ export const RutasTicket = () => {
       });
   });
 
+
+
+
+
+
+  // swagger:
+  /** 
+   * @swagger
+   * /tickets:
+   *   put:
+   *     description: Actualiza un ticket
+   *     tags:
+   *       - Tickets
+   *     parameters:
+   *       - name: id
+   *         in: path
+   *         description: ID del ticket a actualizar
+   *         required: true
+   *         schema:
+   *           type: number
+   *     requestBody:
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object 
+   *             properties:
+   *               id_reserva:
+   *                 type: number
+   *                 description: ID de la reserva al que pertenece el ticket
+   *               id_vuelo:
+   *                 type: number
+   *                 description: ID del vuelo al que pertenece el ticket
+   *               id_pasajero:
+   *                 type: number
+   *                 description: ID del pasajero al que pertenece el ticket
+   *               fecha_emision:
+   *                 type: fecha
+   *                 description: Fecha de emisión del ticket
+   *               estado_ticket:
+   *                 type: string
+   *                 description: Estado del ticket
+   *     produces:
+   *       - application/json
+   *     responses:
+   *       200:
+   *         description: Ticket actualizado
+   *   
+   */
   router.put("/ticket", (req, res) => {  
     const payload = req.body;
     ticketCtrl.actualizar(payload).then((result) => {
@@ -56,6 +190,37 @@ export const RutasTicket = () => {
       });
   });
 
+
+
+
+
+
+
+
+  // swagger:
+  /** 
+   * @swagger
+   * /tickets/{id}:
+   *   get:
+   *     description: Obtiene un ticket por su ID
+   *     tags:
+   *       - Tickets
+   *     parameters:
+   *       - name: id
+   *         in: path
+   *         description: ID del ticket a obtener
+   *         required: true
+   *         schema:
+   *           type: number
+   *     produces:
+   *       - application/json
+   *     responses:
+   *       200:
+   *         description: Ticket obtenido
+   *       404:
+   *         description: Ticket no encontrado
+   *   
+   */ 
   router.get("/ticket/:id", async (req, res) => { 
 
     try {
@@ -76,6 +241,36 @@ export const RutasTicket = () => {
     }
   });
 
+
+
+
+
+
+
+  // swagger:
+  /** 
+   * @swagger
+   * /tickets/{id}:
+   *   delete:
+   *     description: Elimina un ticket por su ID
+   *     tags:
+   *       - Tickets
+   *     parameters:
+   *       - name: id
+   *         in: path
+   *         description: ID del ticket a eliminar
+   *         required: true
+   *         schema:
+   *           type: number
+   *     produces:
+   *       - application/json
+   *     responses:
+   *       200:
+   *         description: Ticket eliminado
+   *       400:
+   *         description: Error al eliminar el ticket
+   *   
+   */ 
   router.delete("/ticket/:id", async (req, res) => {
     try {
       const idStr = req.params.id;
