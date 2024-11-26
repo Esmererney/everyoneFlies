@@ -30,7 +30,6 @@ export class ReservaController {
     this.pasajeroReservaRepository = new PasajeroReservaRepository();
   }
 
-
   // Crear una nueva reserva
   async crearReserva(data : {id_pasajero: number, id_vuelo: string, cantidad_pasajeros: number, categoria: string, precio_subtotal: number, precio_total: number }) {
     const reservaRepository = AppDataSourceMysql.getRepository(ReservaEntity);
@@ -114,9 +113,6 @@ export class ReservaController {
     // Verificar si la reserva existe
     const reservaExistente = await this.repository.reservaExistente(data.id_reserva);
 
-    console.log('reservaExistente', reservaExistente);
-    
-    
     if (!reservaExistente || reservaExistente == null) {
       throw new Error("Reserva no encontrada");
     }
@@ -140,6 +136,8 @@ export class ReservaController {
     if (!categoria_asiento) {
       throw new Error("Categoría no encontrada");
     }
+
+    //Id categoria escogida
     const id_categoria = categoria_asiento.id_categoria;
   
     // Consultar los asientos disponibles para la categoría y cantidad
@@ -152,13 +150,13 @@ export class ReservaController {
     if (detallesAsientosDisponibles.length < Math.abs(diferenciaAsientos)) {
       throw new Error("No hay suficientes asientos disponibles para esta categoría");
     }
-  
+
     // Actualizar el vuelo según la diferencia de asientos
     if (diferenciaAsientos > 0) {
       // Reducir la cantidad de asientos disponibles en el vuelo
       vuelo.asientos_disponibles -= diferenciaAsientos;
       await this.vueloRepository.actualizar(vuelo);
-  
+
       // Crear relaciones de pasajero con nuevos asientos
       for (let i = 0; i < diferenciaAsientos; i++) {
         const asiento = detallesAsientosDisponibles[i];
@@ -169,25 +167,27 @@ export class ReservaController {
         pasajeroReserva.precio_subtotal = data.precio_subtotal;
   
         await this.pasajeroReservaRepository.agregar(pasajeroReserva);
-  
+
         // Actualizar el estado del asiento a ocupado
         asiento.disponible = false;
         await this.asientoRepository.actualizarAsiento(asiento);
+
       }
     } else if (diferenciaAsientos < 0) {
       // Aumentar la cantidad de asientos disponibles en el vuelo
       vuelo.asientos_disponibles += Math.abs(diferenciaAsientos);
       await this.vueloRepository.actualizar(vuelo);
-  
       // Eliminar las relaciones de pasajeros con los asientos
       const asientosAEliminar = reservaExistente.pasajeroReservas.slice(data.cantidad_pasajeros);
-  
+
       for (const pasajeroReserva of asientosAEliminar) {
         // Actualizar el estado de los asientos a disponible
         const asiento = pasajeroReserva.asiento;
+        
         if (asiento) {
           asiento.disponible = true;
           await this.asientoRepository.actualizarAsiento(asiento);
+          
         }
   
         // Eliminar la relación de pasajero con el asiento
@@ -203,6 +203,7 @@ export class ReservaController {
     return { ok: true, id: reservaExistente.id_reserva };
   }
 
+  //Metodo para cancelar reserva
   async cancelarReserva(id_reserva: number) {
     // Verificar si la reserva existe
     const reservaExistente = await this.repository.reservaExistente(id_reserva);
@@ -240,26 +241,6 @@ export class ReservaController {
     await this.repository.agregar(reservaExistente);
   
     return { ok: true, mensaje: "Reserva cancelada exitosamente" };
-  }
-  
-
-  async actualizar(id: number, nuevaCategoria: string) {
-    const reserva = await this.repository.obtenerById(id);
-    if (!reserva) {
-      throw new Error("Reserva no encontrada");
-    }
-  
-    // Verificar la nueva categoría
-    const categoria_asiento = await this.categoriaRepository.obtenerCategoriaPorNombre(nuevaCategoria);
-    if (!categoria_asiento) {
-      throw new Error("Categoría no encontrada");
-    }
-  
-    // Actualizar la reserva con la nueva categoría
-    reserva.estado_reserva = "Actualizado"; // Cambiar el estado
-    const resultado = await this.repository.actualizar(reserva);
-    
-    return resultado;
   }
   
   async obtener() {

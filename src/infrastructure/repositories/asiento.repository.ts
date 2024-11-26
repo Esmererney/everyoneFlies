@@ -40,7 +40,6 @@ export class AsientoRepository {
     if (asientoExistente) {
       return null; // Retorna null si el asiento ya está en uso (mismo vuelo y número de asiento)
     } else {
-      console.log('guardar', this.asientoRepo.save(asiento));
       return this.asientoRepo.save(asiento);
     }
     
