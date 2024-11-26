@@ -16,5 +16,5 @@ export class PreciosTemporalesEntity  {
   disponibilidad?: string;
 
   @Column()
-  porcentaje_final?: number;
+  porcentaje_temporal?: number;
 }

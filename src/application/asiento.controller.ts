@@ -12,7 +12,7 @@ export class AsientoController {
   async agregar(asiento: AsientoEntity) {
     const result = await this.repository.agregarAsiento(asiento);
     if (result != null) {
-      return { ok: true, id: result.id_asiento };
+      return { ok: true, id: asiento.id_asiento };
     } else {
       return { ok: false, message: "Error al agregar el asiento // El vuelo o la categoría no existen" };
     }
