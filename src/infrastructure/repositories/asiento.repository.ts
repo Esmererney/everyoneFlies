@@ -13,7 +13,7 @@ export class AsientoRepository {
   }
 
   // Obtener un asiento por su id
-  async obtenerAsientoPorId(idAsiento: number) {
+  async obtenerAsientoPorId(idAsiento: number | undefined) {
     const asiento = await this.asientoRepo.findOneBy({ id_asiento: idAsiento });
     return asiento != null ? asiento : null;
   }

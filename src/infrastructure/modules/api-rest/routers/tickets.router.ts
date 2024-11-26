@@ -11,6 +11,22 @@ export const RutasTicket = () => {
   const router = Express.Router();
    const ticketCtrl = new TicketsController();
 
+
+   
+   router.post("/check", async (req, res) => {
+    try {
+      const payload = req.body;
+      // Llamar al controlador para crear la reserva
+      const result = await ticketCtrl.check(payload);
+      // Enviar la respuesta
+      res.status(201).send(result);
+    } catch (error: any) {
+      console.error('Error :', error);
+      // Enviar un error genérico con un código de estado adecuado
+      res.status(500).json({ message: error.message || "Error interno del servidor" });
+    }
+  });
+
   router.get("/ticket", (req, res) => { 
     ticketCtrl.obtener().then((result) => {
       res.send(result);

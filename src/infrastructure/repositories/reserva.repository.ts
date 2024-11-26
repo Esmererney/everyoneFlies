@@ -46,6 +46,13 @@ export class ReservaRepository {
   }
 
 
+  cambioEstado(id_reserva: number) {
+    return this.repository.update(id_reserva, {
+      estado_reserva: "Pagado",
+    })
+}
+
+
   obtenerPorId(id_reserva: number){
       return this.repository.find({
           where: {
@@ -59,6 +66,35 @@ export class ReservaRepository {
         where: { id_reserva: id_reserva },
         relations: ['pasajeroReservas', 'vuelo'], // Esto asegura que cargue la relación
       });
+  }
+
+
+  async obtenerReservaConVuelo(id_reserva: number) {
+     
+    const reservaConVuelo = await this.repository
+      .createQueryBuilder("reserva") // Alias para la tabla 'reserva'
+      .innerJoinAndSelect("reserva.vuelo", "vuelo") // Alias para la relación con 'vuelos'
+      .where("reserva.id_reserva = :id_reserva", { id_reserva }) // Filtro por id_reserva
+      .select([
+      "reserva.id_reserva",
+      "reserva.fecha_reserva",
+      "reserva.estado_reserva",
+      "reserva.cantidad_pasajeros",
+      "reserva.precio_total",
+      "vuelo.id_vuelo",
+      "vuelo.aerolinea",
+      "vuelo.origen_aeropuerto",
+      "vuelo.destino_aeropuerto",
+      "vuelo.fecha_salida",
+      "vuelo.fecha_llegada",
+      "vuelo.duracion",
+      "vuelo.total_asientos",
+      "vuelo.asientos_disponibles",
+      "vuelo.estado_vuelo",
+      ]) // Especifica qué columnas quieres seleccionar
+      .getOne();
+  
+    return reservaConVuelo;
   }
 
 

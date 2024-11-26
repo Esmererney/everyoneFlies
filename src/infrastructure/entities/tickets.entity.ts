@@ -25,7 +25,7 @@ export class TicketsEntity {
   estado_ticket?: string;
 
  
-  @OneToOne(() => ReservaEntity, (reserva) => reserva.id_reserva)
+  @ManyToOne(() => ReservaEntity, (reserva) => reserva.id_reserva)
   @JoinColumn({ name: "id_reserva" })
   reserva?: ReservaEntity;
 
