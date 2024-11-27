@@ -5,11 +5,11 @@ import { PasajeroReservaRepository } from "../infrastructure/repositories/pasaje
 import { ReservaRepository } from "../infrastructure/repositories/reserva.repository";
 import { TicketsRepository } from "../infrastructure/repositories/tickets.respository";
 import { generateFlightTicket } from "../infrastructure/service/impresionPDF";
-import { VueloRepository } from "../infrastructure/repositories/vuelo.repository";
 import { PasajeroRepository } from "../infrastructure/repositories/pasajero.repository";
 import { AsientoRepository } from "../infrastructure/repositories/asiento.repository";
 import { enviarCorreo } from "../infrastructure/service/notificacion";
 import { pasajeroReservaEntity } from "../infrastructure/entities/pasajero_reserva.entity";
+import { VueloRepository } from "../infrastructure/repositories/vuelo.repository";
 
 
 export class TicketsController {
@@ -65,14 +65,15 @@ export class TicketsController {
           enviarCorreo(Email, buscarPasajero, boardingPassPath );
         }
         return {
-          mensaje : "Su  proceso de check - in  a hacido completado" ,
+          ok : true ,
+          mensaje : "Su  proceso de check-in  a hacido completado" ,
           fecha :  horaFomateada,
           recuerde : "Revise su correo "
         }
       } else {
           return { 
           mensaje : "El check-in no está disponible." ,
-          fecha :  FechaDeSalidad,
+          fecha :  horaFomateada,
           recuerde : "Recueda el proceso de chek-in es 24 horas antes del vuelo y se cierra 1 hora antes"
         } ;
       }
