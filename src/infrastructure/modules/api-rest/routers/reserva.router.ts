@@ -12,80 +12,100 @@ export const RutasReserva = () => {
   const reservaCtrl = new ReservaController();
 
   /**
-   * @swagger
-   * /agregarReserva:
-   *   post:
-   *     description: Crear una nueva reserva en el sistema.
-   *     tags:
-   *       - Reserva
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             type: object
-   *             properties:
-   *               id_pasajero:
-   *                 type: number
-   *                 description: ID del pasajero.
-   *                 example: 12345
-   *               id_vuelo:
-   *                 type: string
-   *                 description: Identificador del vuelo.
-   *                 example: "FL123"
-   *               cantidad_pasajeros:
-   *                 type: number
-   *                 description: Número de pasajeros en la reserva.
-   *                 example: 2
-   *               categoria:
-   *                 type: string
-   *                 description: Categoría de la reserva (e.g., económica, ejecutiva).
-   *                 example: "económica"
-   *               precio_subtotal:
-   *                 type: number
-   *                 description: Subtotal del precio de la reserva.
-   *                 example: 200.00
-   *               precio_total:
-   *                 type: number
-   *                 description: Precio total de la reserva.
-   *                 example: 250.00
-   *     produces:
-   *       - application/json
-   *     responses:
-   *       201:
-   *         description: Reserva creada exitosamente.
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 id_reserva:
-   *                   type: string
-   *                   description: Identificador único de la reserva creada.
-   *                   example: "RES12345"
-   *                 message:
-   *                   type: string
-   *                   description: Mensaje de éxito.
-   *                   example: "Reserva creada exitosamente."
-   *       400:
-   *         description: Solicitud inválida. Verifique los datos enviados.
-   *       500:
-   *         description: Error interno del servidor.
-  */
-  router.post("/agregarReserva", async (req, res) => {
+ * @swagger
+ * /reserva:
+ *   post:
+ *     summary: Crear una nueva reserva de vuelo
+ *     description: Permite crear una nueva reserva de vuelo, asociando asientos y pasajeros.
+ *     operationId: crearReserva
+ *     tags:
+ *       - Reserva
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id_vuelo:
+ *                 type: string
+ *                 description: ID del vuelo para la reserva.
+ *                 example: 1
+ *               ids_asientos:
+ *                 type: array
+ *                 items:
+ *                   type: integer
+ *                 description: Lista de IDs de los asientos seleccionados.
+ *               datos_pasajeros:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     nombre:
+ *                       type: string
+ *                       description: Nombre del pasajero.
+ *                       example: Ana
+ *                     apellido:
+ *                        type: string
+ *                        description: Apellido del pasajero
+ *                        example: Rodriguez
+ *                     email:
+ *                       type: string
+ *                       description: Correo electrónico del pasajero.
+ *                       example: ana.ro@ejemplo.com
+ *                     telefono:
+ *                       type: string
+ *                       description: Teléfono de contacto del pasajero.
+ *                       example: 3002334214
+ *                     nacionalidad:
+ *                       type: string
+ *                       description: Nacionalidad del pasajero.
+ *                       example: Colombia
+ *                     id_pasaporte:
+ *                       type: string
+ *                       description: ID del pasaporte del pasajero.
+ *                       example: 2342362457
+ *     responses:
+ *       201:
+ *         description: Reserva creada con éxito.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 ok:
+ *                   type: boolean
+ *                   example: true
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *       400:
+ *         description: Error de validación de datos.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+  router.post("/reserva", async (req, res) => {
     try {
-      const payload = req.body;
-      
-      // Llamar al controlador para crear la reserva
-      const result = await reservaCtrl.crearReserva(payload);
-  
-      // Enviar la respuesta
-      res.status(201).send(result);
+      const { id_vuelo, ids_asientos, datos_pasajeros } = req.body;
+
+      // Verificar que se reciban los datos correctos
+      if (!id_vuelo || !Array.isArray(ids_asientos) || ids_asientos.length === 0 || !Array.isArray(datos_pasajeros) || datos_pasajeros.some(p => 
+        !p.nombre || !p.documento || !p.email || !p.telefono || !p.nacionalidad || !p.id_pasaporte)) {
+        res.status(400).json({ error: "Datos incompletos. Asegúrese de enviar id_vuelo, ids_asientos y datos_pasajeros correctamente." });
+      }
+
+      // Crear la reserva utilizando el controlador
+      const reservaController = new ReservaController(); // Instanciar el controlador
+      const result = await reservaController.crearReserva({
+        id_vuelo,
+        ids_asientos,
+        datos_pasajeros
+      });
+
+      res.status(201).json(result); // Respuesta exitosa con el ID de la reserva
     } catch (error: any) {
-      console.error('Error al crear la reserva:', error);
-  
-      // Enviar un error genérico con un código de estado adecuado
-      res.status(500).json({ message: error.message || "Error interno del servidor" });
+      console.error(error);
+      res.status(500).json({ error: "Ocurrió un error al crear la reserva." });
     }
   });
 
@@ -369,6 +389,6 @@ export const RutasReserva = () => {
       res.status(500).send(error);
     }
   });
-  return router;
 
+  return router;
 };

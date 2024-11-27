@@ -1,6 +1,7 @@
 import { AsientoEntity } from "../entities/asientos.entity";
 import { AppDataSourceMysql } from "../db/source.orm";
 import { VueloEntity } from "../entities/vuelos.entity";
+import { In } from "typeorm";
 
 export class AsientoRepository {
 
@@ -16,6 +17,18 @@ export class AsientoRepository {
   async obtenerAsientoPorId(idAsiento: number | undefined) {
     const asiento = await this.asientoRepo.findOneBy({ id_asiento: idAsiento });
     return asiento != null ? asiento : null;
+  }
+
+  async obtenerAsientosPorIds(ids_asientos: number[]) {
+    if (!ids_asientos.length) {
+        throw new Error("El arreglo de IDs de asientos está vacío");
+    }
+
+    const asientos = await this.asientoRepo.findBy({ 
+        id_asiento: In(ids_asientos) 
+    });
+
+    return asientos;
   }
 
   // Agregar un nuevo asiento

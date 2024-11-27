@@ -47,6 +47,6 @@ export class AsientoEntity {
 
    // Relación inversa con pasajeroReservaEntity
    @OneToMany(() => pasajeroReservaEntity, pasajeroReserva => pasajeroReserva.asiento)
-   pasajeroReservas!: pasajeroReservaEntity[];
+   pasajeroReservas?: pasajeroReservaEntity[];
 
 }

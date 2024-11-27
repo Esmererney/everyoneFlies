@@ -5,7 +5,7 @@ import { PasajeroReservaRepository } from "../infrastructure/repositories/pasaje
 import { ReservaRepository } from "../infrastructure/repositories/reserva.repository";
 import { TicketsRepository } from "../infrastructure/repositories/tickets.respository";
 import { generateFlightTicket } from "../infrastructure/service/impresionPDF";
-import { vueloRepository } from "../infrastructure/repositories/vuelo.repository";
+import { VueloRepository } from "../infrastructure/repositories/vuelo.repository";
 import { PasajeroRepository } from "../infrastructure/repositories/pasajero.repository";
 import { AsientoRepository } from "../infrastructure/repositories/asiento.repository";
 import { enviarCorreo } from "../infrastructure/service/notificacion";
@@ -16,7 +16,7 @@ export class TicketsController {
 
   private ticketsRepository: TicketsRepository;
   private reservaRepository: ReservaRepository;
-  private vueloRepository : vueloRepository;
+  private vueloRepository : VueloRepository;
   private pasajeroRepository : PasajeroRepository;
   private asientoRepository : AsientoRepository;
   private pasajeroReservaRepository: PasajeroReservaRepository;
@@ -25,7 +25,7 @@ export class TicketsController {
     this.ticketsRepository = new TicketsRepository();
     this.reservaRepository = new ReservaRepository();
     this.pasajeroReservaRepository = new PasajeroReservaRepository();
-    this.vueloRepository =  new vueloRepository();
+    this.vueloRepository =  new VueloRepository();
     this.pasajeroRepository =  new PasajeroRepository();
     this.asientoRepository =  new AsientoRepository();
   }
