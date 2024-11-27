@@ -63,10 +63,10 @@ Un sistema robusto y escalable para gestionar vuelos, reservas y tickets, diseñ
 5. Configura base de datos de desarrollo y producción en archivos "development.json" y "production.json":
 ```env
 DB_HOST=junction.proxy.rlwy.net
-DB_PORT=51520
-DB_USER=root
-DB_PASSWORD=qhRywzTZfelJHbzHgorSDzIZZOFSwFbS
-DB_DATABASE=railway
+DB_PORT=
+DB_USER=
+DB_PASSWORD=
+DB_DATABASE=
 DB_TYPE=mysql
 DB_SSL=true
 ```
