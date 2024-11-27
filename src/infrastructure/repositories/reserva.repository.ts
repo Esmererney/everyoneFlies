@@ -13,7 +13,7 @@ export class ReservaRepository {
   }
 
   obtener(){
-      return this.repository.find()
+      return this.repository.find({relations: ['pasajeroReservas', 'vuelo', 'pasajeroReservas.asiento']})
   }
   
   obtenerById(id: number){
@@ -28,6 +28,7 @@ export class ReservaRepository {
           where: {
               id_reserva:id
           },
+          relations: ['pasajeroReservas', 'vuelo', 'pasajeroReservas.asiento'], // Esto asegura que cargue la relación
       })
   }
 
@@ -64,7 +65,7 @@ export class ReservaRepository {
   reservaExistente(id_reserva: number) {
     return this.repository.findOne({
         where: { id_reserva: id_reserva },
-        relations: ['pasajeroReservas', 'vuelo'], // Esto asegura que cargue la relación
+        relations: ['pasajeroReservas', 'vuelo', 'pasajeroReservas.asiento'], // Esto asegura que cargue la relación
       });
   }
 

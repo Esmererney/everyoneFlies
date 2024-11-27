@@ -65,8 +65,13 @@ export class SeleccionarCategoriaController {
                     disponibilidad: disponibilidadBaja ? "baja" : "alta",
                     demanda: demandaAlta ? "alta" : "baja"
                 };
+
+                console.log('condicionesTemporales', condicionesTemporales);
+                
                 // Obtener el porcentaje temporal basado en las condiciones
                 const precioTemporal = await this.precioTemporalesRepository.obtenerPorCondiciones(condicionesTemporales);
+                console.log("PRECIOS TEMPORALES", precioTemporal);
+                
                 if (precioTemporal?.porcentaje_temporal) {
                     precio *= (1 + precioTemporal.porcentaje_temporal / 100);
 

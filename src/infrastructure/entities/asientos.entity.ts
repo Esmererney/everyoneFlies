@@ -2,7 +2,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 import { CategoriaEntity } from "./categorias.entity";
 import { VueloEntity } from "./vuelos.entity";
-import { PreciosTemporalesEntity } from "./precios_temporales.entity";
+import { pasajeroReservaEntity } from "./pasajero_reserva.entity";
 
 @Entity("asientos")
 export class AsientoEntity {
@@ -44,5 +44,9 @@ export class AsientoEntity {
   @ManyToOne(() => CategoriaEntity, (categoria) => categoria.id_categoria ) //  { eager: false } trae los datos internos 
   @JoinColumn({ name: "id_categoria" })
   id_categoria_asiento?: number;
+
+   // Relación inversa con pasajeroReservaEntity
+   @OneToMany(() => pasajeroReservaEntity, pasajeroReserva => pasajeroReserva.asiento)
+   pasajeroReservas?: pasajeroReservaEntity[];
 
 }
