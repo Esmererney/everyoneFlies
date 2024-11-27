@@ -49,33 +49,43 @@ export class ReservaController {
     console.log('vuelo', vuelo);
     
     if (!vuelo) {
-      throw new Error("Vuelo no encontrado");
+      return "Vuelo no encontrado";
     }
 
     // Verificar disponibilidad de asientos
     const ids_asientos = data.ids_asientos;
     if (ids_asientos.length === 0) {
-      throw new Error("Debe seleccionar al menos un asiento");
+      return "Debe seleccionar al menos un asiento";
     }
 
     const asientosSeleccionados = await this.asientoRepository.obtenerAsientosPorIds(ids_asientos);
     console.log('asientosSeleccionados', asientosSeleccionados);
     
     if (asientosSeleccionados.length !== ids_asientos.length) {
-      throw new Error("Uno o más asientos seleccionados no existen");
+      return "Uno o más asientos seleccionados no existen";
     }
 
 
     // Validar que los asientos estén disponibles y pertenezcan al vuelo
     for (const asiento of asientosSeleccionados) {
+
+      console.log(!asiento.disponible || asiento.id_vuelo !== n_id_vuelo)
+      console.log("----" +  asiento.disponible)
+      console.log("----" +  asiento.id_vuelo)
+      console.log("----" +  n_id_vuelo)
+
+
+
+
       if (!asiento.disponible || asiento.id_vuelo !== n_id_vuelo) {
-        throw new Error(`El asiento ${asiento.id_asiento} no está disponible para este vuelo`);
+
+        return `El asiento ${asiento.id_asiento} no está disponible para este vuelo`;
       }
     }
 
     // Verificar que los datos de pasajeros coincidan con los asientos seleccionados
     if (data.datos_pasajeros.length !== ids_asientos.length) {
-      throw new Error("La cantidad de pasajeros no coincide con los asientos seleccionados");
+      return "La cantidad de pasajeros no coincide con los asientos seleccionados";
     }
 
     // Insertar los pasajeros en la tabla pasajero y obtener sus IDs
@@ -156,13 +166,13 @@ export class ReservaController {
     const reservaExistente = await this.repository.reservaExistente(id_reserva);
   
     if (!reservaExistente) {
-      throw new Error("Reserva no encontrada");
+      return "Reserva no encontrada";
     }
   
     // Obtener el vuelo asociado a la reserva
     const vuelo = reservaExistente.vuelo;
     if (!vuelo) {
-      throw new Error("Vuelo no encontrado");
+      return "Vuelo no encontrado";
     }
   
     // Obtener la cantidad de pasajeros de la reserva
@@ -204,7 +214,7 @@ export class ReservaController {
         return "El ID de la reserva no se encuentra en la base de datos";
       }
     } catch (error) {
-      console.log("Ha ocurrido un error al consultar el codigo de reserva.");
+      console.log("Ha ocurrido un error al consultar el codigo de reserva."); 
       return error;
     }
   }
@@ -223,14 +233,14 @@ export class ReservaController {
     console.log("id_vuelo", id_vuelo)
 
     if (!reservaExistente) {
-      throw new Error("Reserva no encontrada");
+      return "Reserva no encontrada";
     }
 
     // Verificar si el vuelo existe
     const vuelo = await this.vueloRepository.obtenerPorId(id_vuelo);
     console.log("vuelo", vuelo)
     if (!vuelo) {
-      throw new Error("Vuelo no encontrado");
+      return "Vuelo no encontrado";
     }
 
     // Verificar si la cantidad de asientos es mayor o menor
@@ -240,14 +250,14 @@ export class ReservaController {
 
     // Verificar si hay suficiente disponibilidad de asientos en el vuelo
     if (diferenciaAsientos > 0 && vuelo.asientos_disponibles < diferenciaAsientos) {
-      throw new Error("No hay suficientes asientos disponibles");
+      return "No hay suficientes asientos disponibles";
     }
 
     // Obtener el ID de categoría del asiento
     const categoria_asiento = await this.categoriaRepository.obtenerCategoriaPorNombre(data.categoria);
     console.log("categoria_asiento", categoria_asiento)
     if (!categoria_asiento) {
-      throw new Error("Categoría no encontrada");
+      return "Categoría no encontrada";
     }
 
     const id_categoria = categoria_asiento.id_categoria;
@@ -261,7 +271,7 @@ export class ReservaController {
     console.log("detallesAsientosDisponibles", detallesAsientosDisponibles)
 
     if (detallesAsientosDisponibles.length < Math.abs(diferenciaAsientos)) {
-      throw new Error("No hay suficientes asientos disponibles para esta categoría");
+      return "No hay suficientes asientos disponibles para esta categoría";
     }
 
     // Actualizar el vuelo según la diferencia de asientos
