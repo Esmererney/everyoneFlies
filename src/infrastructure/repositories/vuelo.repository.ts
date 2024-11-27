@@ -72,16 +72,14 @@ export class VueloRepository implements CRUD {
   }
 
   //funciones del cliente
-  async buscarPorCriterios(origen: string, destino: string, fecha: Date) {
+  async buscarPorCriterios(origen?: string, destino?: string, fecha?: Date) {
     const vuelos = await this.repository.find({
-      where: {
-        origen_aeropuerto: origen,
-        destino_aeropuerto: destino,
-        fecha_salida: fecha,
-      },  
+      where: [
+        { origen_aeropuerto: origen },
+        { destino_aeropuerto: destino },
+        { fecha_salida: fecha },
+      ],
     });
     return vuelos.length > 0 ? vuelos : null;
   }
-  
-
 }

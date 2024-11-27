@@ -36,7 +36,7 @@ export const PasajeroRouter = () => {
    *                 type: string
    *                 description: Email del pasajero
    *               telefono:
-   *                 type: string
+   *                 type: number
    *                 description: Telefono del pasajero
    *               nacionalidad:
    *                 type: string
@@ -212,7 +212,7 @@ export const PasajeroRouter = () => {
    *                 type: string
    *                 description: Email del pasajero
    *               telefono:
-   *                 type: string
+   *                 type: number
    *                 description: Telefono del pasajero
    *               nacionalidad:
    *                 type: string

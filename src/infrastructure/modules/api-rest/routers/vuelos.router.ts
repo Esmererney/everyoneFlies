@@ -79,12 +79,6 @@ export const RutasVuelo = () => {
   });
 
 
-
-
-
-
-
-
   // swagger:
   /** 
    * @swagger
@@ -112,10 +106,10 @@ export const RutasVuelo = () => {
    *                 type: string
    *                 description: Destino del vuelo
    *               fecha_salida:
-   *                 type: fecha
+   *                 type: string
    *                 description: Fecha de salida del vuelo
    *               fecha_llegada:
-   *                 type: fecha
+   *                 type: string
    *                 description: Fecha de llegada del vuelo
    *               duracion:
    *                 type: number
@@ -129,6 +123,9 @@ export const RutasVuelo = () => {
    *               estado_vuelo:
    *                 type: string
    *                 description: Estado del vuelo
+   *               precio_base_vuelo:
+   *                 type: number
+   *                 description: precio base 
    *     produces:
    *       - application/json
    *     responses:
@@ -222,11 +219,6 @@ export const RutasVuelo = () => {
         res.status(505).send(error);
       });
   });
-
-
-
-
-
 
 
 
@@ -349,7 +341,7 @@ export const RutasVuelo = () => {
   router.post("/vuelos/buscar", async (req, res) => {
     const { origen_aeropuerto, destino_aeropuerto, fecha_salida } = req.body;
 
-    if (!origen_aeropuerto || !destino_aeropuerto || !fecha_salida) {
+    if (origen_aeropuerto || !destino_aeropuerto || !fecha_salida) {
       res.status(400).send({ ok: false, message: "Faltan parámetros de búsqueda" });
     }
   
