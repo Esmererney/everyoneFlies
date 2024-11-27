@@ -69,6 +69,7 @@ DB_PASSWORD=qhRywzTZfelJHbzHgorSDzIZZOFSwFbS
 DB_DATABASE=railway
 DB_TYPE=mysql
 DB_SSL=true
+```
 
 6. Ejecuta las migraciones para inicializar la base de datos:
     ```bash
