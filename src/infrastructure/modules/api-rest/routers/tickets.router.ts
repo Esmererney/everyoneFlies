@@ -58,20 +58,6 @@ export const RutasTicket = () => {
    *               type: object
    */
 
-   
-   router.post("/check", async (req, res) => {
-    try {
-      const payload = req.body;
-      // Llamar al controlador para crear la reserva
-      const result = await ticketCtrl.check(payload);
-      // Enviar la respuesta
-      res.status(201).send(result);
-    } catch (error: any) {
-      console.error('Error :', error);
-      // Enviar un error genérico con un código de estado adecuado
-      res.status(500).json({ message: error.message || "Error interno del servidor" });
-    }
-  });
 
   router.get("/ticket", (req, res) => { 
     ticketCtrl.obtener().then((result) => {
@@ -103,18 +89,6 @@ export const RutasTicket = () => {
    *               id_reserva:
    *                 type: number
    *                 description: ID de la reserva al que pertenece el ticket
-   *               id_vuelo:
-   *                 type: number
-   *                 description: ID del vuelo al que pertenece el ticket
-   *               id_pasajero:
-   *                 type: number
-   *                 description: ID del pasajero al que pertenece el ticket
-   *               fecha_emision:
-   *                 type: fecha
-   *                 description: Fecha de emisión del ticket
-   *               estado_ticket:
-   *                 type: string
-   *                 description: Estado del ticket
    *     produces:
    *       - application/json
    *     responses:
@@ -122,7 +96,27 @@ export const RutasTicket = () => {
    *         description: Ticket creado
    *   
    */
-  router.post("/ticket", (req, res) => { 
+   
+   router.post("/tickets", async (req, res) => {
+    try {
+      const payload = req.body;
+      // Llamar al controlador para crear la reserva
+      const result = await ticketCtrl.check(payload);
+      // Enviar la respuesta
+      res.status(201).send(result);
+    } catch (error: any) {
+      console.error('Error :', error);
+      // Enviar un error genérico con un código de estado adecuado
+      res.status(500).json({ message: error.message || "Error interno del servidor" });
+    }
+  });
+
+ 
+
+
+
+  
+  router.post("/ticket_2", (req, res) => { 
     const payload = req.body;
     ticketCtrl.agregar(payload).then((result) => {
       res.send(result);
