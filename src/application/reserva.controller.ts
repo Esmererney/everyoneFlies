@@ -223,131 +223,93 @@ export class ReservaController {
     const result = await this.repository.eliminar(id);
     return  result
   }
-
-  // Actualizar una reserva existente
-  async actualizarReserva(data: {id_reserva: number, id_pasajero: number, cantidad_pasajeros: number, categoria: string}) {
-
+  
+  async actualizarReserva(id_reserva: number, data: { 
+    ids_asientos?: number[], 
+    datos_pasajeros?: Array<{ nombre: string; apellido: string; email: string; telefono: string; nacionalidad: string; id_pasaporte: string }>
+  }) {
     // Verificar si la reserva existe
-    const reservaExistente = await this.repository.reservaExistente(data.id_reserva);
-    const id_vuelo = Number(reservaExistente?.id_vuelo)
-    console.log("id_vuelo", id_vuelo)
-
+    const reservaExistente = await this.repository.reservaExistente(id_reserva);
+    console.log('Reserva', reservaExistente);
+    
     if (!reservaExistente) {
       return "Reserva no encontrada";
     }
-
-    // Verificar si el vuelo existe
+  
+    // Obtener información del vuelo asociado
+    const id_vuelo = Number(reservaExistente?.id_vuelo)
     const vuelo = await this.vueloRepository.obtenerPorId(id_vuelo);
-    console.log("vuelo", vuelo)
-    if (!vuelo) {
-      return "Vuelo no encontrado";
-    }
-
-    // Verificar si la cantidad de asientos es mayor o menor
-    const diferenciaAsientos = data.cantidad_pasajeros - reservaExistente.pasajeroReservas.length;
-    console.log('Diferencia asientos', diferenciaAsientos);
+    console.log("vuelo", vuelo);
     
-
-    // Verificar si hay suficiente disponibilidad de asientos en el vuelo
-    if (diferenciaAsientos > 0 && vuelo.asientos_disponibles < diferenciaAsientos) {
-      return "No hay suficientes asientos disponibles";
+    if (!vuelo) {
+      return "Vuelo asociado a la reserva no encontrado";
     }
-
-    // Obtener el ID de categoría del asiento
-    const categoria_asiento = await this.categoriaRepository.obtenerCategoriaPorNombre(data.categoria);
-    console.log("categoria_asiento", categoria_asiento)
-    if (!categoria_asiento) {
-      return "Categoría no encontrada";
-    }
-
-    const id_categoria = categoria_asiento.id_categoria;
-
-    // Consultar los asientos disponibles para la categoría y cantidad
-    const detallesAsientosDisponibles = await this.asientoRepository.obtenerDetallesAsientosDisponibles(
-      vuelo.id_vuelo,
-      id_categoria,
-      Math.abs(diferenciaAsientos)
-    );
-    console.log("detallesAsientosDisponibles", detallesAsientosDisponibles)
-
-    if (detallesAsientosDisponibles.length < Math.abs(diferenciaAsientos)) {
-      return "No hay suficientes asientos disponibles para esta categoría";
-    }
-
-    // Actualizar el vuelo según la diferencia de asientos
-    if (diferenciaAsientos > 0) {
-      // Reducir la cantidad de asientos disponibles en el vuelo
-      vuelo.asientos_disponibles -= diferenciaAsientos;
-      // const actualizarVuelo = await this.vueloRepository.actualizar(vuelo);
-      console.log("actualizarVuelo", vuelo)
-
-      // Obtener el precio del asiento según su categoría
-      const precioAsiento = await this.seleccionarCategoriaController.seleccionarCategoriaYCalcularPrecio({
-        id_vuelo: vuelo.id_vuelo,
-        categoria: data.categoria,
-      });
-      console.log("precioAsiento", precioAsiento)
-
-      // Crear relaciones de pasajero con nuevos asientos
-      for (let i = 0; i < diferenciaAsientos; i++) {
-        const asiento = detallesAsientosDisponibles[i];
-        const pasajeroReserva = new pasajeroReservaEntity();
-        pasajeroReserva.id_asiento = asiento.id_asiento;
-        pasajeroReserva.id_reserva = reservaExistente.id_reserva;
-        pasajeroReserva.id_pasajero = data.id_pasajero;
-        pasajeroReserva.precio_subtotal = precioAsiento.precio;
-
-        // const agregarPasajeroReserva = await this.pasajeroReservaRepository.agregar(pasajeroReserva);
-        console.log("agregarPasajeroReserva", pasajeroReserva)
-
-        // Actualizar el estado del asiento a ocupado
-        asiento.disponible = false;
-        // const actualizarAsiento =  await this.asientoRepository.actualizarAsiento(asiento);
-        console.log("actualizarAsiento", asiento)
+  
+    // Actualizar asientos, si se proporciona
+    if (data.ids_asientos) {
+      const nuevosAsientos = await this.asientoRepository.obtenerAsientosPorIds(data.ids_asientos);
+  
+      if (nuevosAsientos.length !== data.ids_asientos.length) {
+        return "Uno o más asientos seleccionados no existen";
       }
-    } else if (diferenciaAsientos < 0) {
-      // Aumentar la cantidad de asientos disponibles en el vuelo
-      vuelo.asientos_disponibles += Math.abs(diferenciaAsientos);
-      // const actualizarVuelo =  await this.vueloRepository.actualizar(vuelo);
-      console.log("actualizarVuelo", vuelo)
-
-      // Eliminar las relaciones de pasajeros con los asientos
-      const asientosAEliminar = reservaExistente.pasajeroReservas.slice(data.cantidad_pasajeros);
-
-      for (const pasajeroReserva of asientosAEliminar) {
-        // Actualizar el estado de los asientos a disponible
-        const asiento = pasajeroReserva.asiento;
-        
-        if (asiento) {
-          asiento.disponible = true;
-          // const actualizarAsiento = await this.asientoRepository.actualizarAsiento(asiento);
-          console.log("actualizarAsiento", asiento)
+  
+      for (const asiento of nuevosAsientos) {
+        if (!asiento.disponible || asiento.id_vuelo !== vuelo.id_vuelo) {
+          return `El asiento ${asiento.id_asiento} no está disponible o no pertenece al vuelo seleccionado`;
         }
-
-        // Eliminar la relación de pasajero con el asiento
-        const eliminarPasajeroReserva = await this.pasajeroReservaRepository.eliminar(pasajeroReserva.id_pasajero_reserva);
-        console.log("eliminarPasajeroReserva", eliminarPasajeroReserva)
+      }
+  
+      // Liberar los asientos actuales
+      for (const pasajeroReserva of reservaExistente.pasajeroReservas) {
+        const asientoActual = await this.asientoRepository.obtenerAsientoPorId(Number(pasajeroReserva.id_asiento));
+        if (asientoActual) {
+          asientoActual.disponible = true;
+          await this.asientoRepository.actualizarAsiento(asientoActual);
+        }
+      }
+  
+      // Asociar los nuevos asientos
+      for (let i = 0; i < data.ids_asientos.length; i++) {
+        const nuevoAsiento = nuevosAsientos[i];
+        nuevoAsiento.disponible = false;
+        await this.asientoRepository.actualizarAsiento(nuevoAsiento);
+  
+        const pasajeroReserva = reservaExistente.pasajeroReservas[i];
+        pasajeroReserva.id_asiento = nuevoAsiento.id_asiento;
+        await this.pasajeroReservaRepository.actualizar(pasajeroReserva);
+      }
+  
+      // Actualizar disponibilidad de asientos del vuelo
+      vuelo.asientos_disponibles += reservaExistente.pasajeroReservas.length - data.ids_asientos.length;
+      await this.vueloRepository.actualizar(vuelo);
+    }
+  
+    // Actualizar datos de los pasajeros, si se proporcionan
+    if (data.datos_pasajeros) {
+      if (data.datos_pasajeros.length !== reservaExistente.pasajeroReservas.length) {
+        return "La cantidad de pasajeros no coincide con la cantidad de asientos seleccionados";
+      }
+  
+      for (let i = 0; i < data.datos_pasajeros.length; i++) {
+        const datosPasajero = data.datos_pasajeros[i];
+        const pasajeroReserva = reservaExistente.pasajeroReservas[i];
+        const pasajero = await this.pasajeroRepository.obtenerPorId(Number(pasajeroReserva.id_pasajero));
+  
+        if (pasajero) {
+          pasajero.nombre = datosPasajero.nombre;
+          pasajero.apellido = datosPasajero.apellido;
+          pasajero.email = datosPasajero.email;
+          pasajero.telefono = datosPasajero.telefono;
+          pasajero.nacionalidad = datosPasajero.nacionalidad;
+          pasajero.id_pasaporte = datosPasajero.id_pasaporte;
+          await this.pasajeroRepository.actualizar(pasajero);
+        }
       }
     }
-
-    // Calcular precio total actualizado
-    let precio_total = 0;
-    for (const asiento of detallesAsientosDisponibles) {
-      const categoria = await this.categoriaRepository.obtenerCategoriaPorId(Number(asiento.id_categoria));
-      const precioAsiento = await this.seleccionarCategoriaController.seleccionarCategoriaYCalcularPrecio({
-        id_vuelo: vuelo.id_vuelo,
-        categoria: String(categoria?.nombre_categoria),
-      });
-      precio_total += precioAsiento.precio;
-    }
-
-    // Actualizar los detalles de la reserva
-    reservaExistente.precio_total = precio_total;
-    const agregarReserva = await this.repository.agregar(reservaExistente);
-    console.log("agregarReserva", agregarReserva)
-
-    // Devolver la respuesta
-    return { ok: true, id: reservaExistente.id_reserva };
+  
+    // Retornar confirmación
+    return { ok: true, mensaje: "Reserva actualizada exitosamente" };
   }
+    
     
 }

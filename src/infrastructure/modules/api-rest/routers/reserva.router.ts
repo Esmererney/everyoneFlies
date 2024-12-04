@@ -1,11 +1,6 @@
 import Express from "express";
 import { ReservaController } from "../../../../application/reserva.controller"
 
-
-// import { ProductoController } from "";
-// Objetivo: Exponer las rutas de la api
-// PATH: es la ruta
-
 export const RutasReserva = () => {
   
   const router = Express.Router();
@@ -109,65 +104,115 @@ export const RutasReserva = () => {
     }
   });
 
+  // Swagger Documentation for actualizarReserva endpoint
   /**
    * @swagger
-   * /reserva:
-   *   put:
-   *     description: Actualizar una reserva existente en el sistema.
-   *     tags:
-   *       - Reserva
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             type: object
-   *             properties:
-   *               id_reserva:
-   *                 type: number
-   *                 description: ID único de la reserva.
-   *                 example: 123
-   *               id_pasajero:
-   *                 type: number
-   *                 description: ID del pasajero asociado a la reserva.
-   *                 example: 456
-   *               cantidad_pasajeros:
-   *                 type: number
-   *                 description: Número de pasajeros en la reserva.
-   *                 example: 2
-   *               categoria:
-   *                 type: string
-   *                 description: Categoría de la reserva (e.g., económica, ejecutiva).
-   *                 example: "ejecutiva"
-   *     produces:
-   *       - application/json
-   *     responses:
-   *       200:
-   *         description: Reserva actualizada exitosamente.
+   * paths:
+   *   /reserva:
+   *     put:
+   *       summary: Actualizar una reserva existente
+   *       description: Permite actualizar los detalles de una reserva, incluyendo asientos y datos de pasajeros.
+   *       tags:
+   *         - Reservas
+   *       requestBody:
+   *         required: true
    *         content:
    *           application/json:
    *             schema:
    *               type: object
    *               properties:
-   *                 message:
-   *                   type: string
-   *                   description: Mensaje de éxito.
-   *                   example: "Reserva actualizada correctamente."
-   *       400:
-   *         description: Error en la solicitud. Verifique los datos enviados.
-   *       505:
-   *         description: Error interno del servidor.
-  */
+   *                 id_reserva:
+   *                   type: integer
+   *                   description: ID único de la reserva que se desea actualizar.
+   *                   example: 123
+   *                 ids_asientos:
+   *                   type: array
+   *                   description: Lista de IDs de asientos que se asignarán a la reserva.
+   *                   items:
+   *                     type: integer
+   *                   example: [1, 2, 3]
+   *                 datos_pasajeros:
+   *                   type: array
+   *                   description: Información de los pasajeros asignados a la reserva. Debe coincidir con el número de asientos seleccionados.
+   *                   items:
+   *                     type: object
+   *                     properties:
+   *                       nombre:
+   *                         type: string
+   *                         description: Nombre del pasajero.
+   *                         example: "Juan"
+   *                       apellido:
+   *                         type: string
+   *                         description: Apellido del pasajero.
+   *                         example: "Pérez"
+   *                       email:
+   *                         type: string
+   *                         description: Correo electrónico del pasajero.
+   *                         example: "juan.perez@example.com"
+   *                       telefono:
+   *                         type: string
+   *                         description: Número de teléfono del pasajero.
+   *                         example: "+573001234567"
+   *                       nacionalidad:
+   *                         type: string
+   *                         description: Nacionalidad del pasajero.
+   *                         example: "Colombiana"
+   *                       id_pasaporte:
+   *                         type: string
+   *                         description: Identificación del pasaporte del pasajero.
+   *                         example: "A12345678"
+   *             required:
+   *               - id_reserva
+   *       responses:
+   *         '200':
+   *           description: Reserva actualizada exitosamente.
+   *           content:
+   *             application/json:
+   *               schema:
+   *                 type: object
+   *                 properties:
+   *                   ok:
+   *                     type: boolean
+   *                     description: Indica si la operación fue exitosa.
+   *                     example: true
+   *                   mensaje:
+   *                     type: string
+   *                     description: Mensaje de confirmación.
+   *                     example: "Reserva actualizada exitosamente"
+   *         '404':
+   *           description: Reserva no encontrada.
+   *           content:
+   *             application/json:
+   *               schema:
+   *                 type: object
+   *                 properties:
+   *                   error:
+   *                     type: string
+   *                     description: Detalle del error.
+   *                     example: "Reserva no encontrada"
+   *         '500':
+   *           description: Error del servidor.
+   *           content:
+   *             application/json:
+   *               schema:
+   *                 type: object
+   *                 properties:
+   *                   error:
+   *                     type: string
+   *                     description: Detalle del error.
+   *                     example: "Error interno del servidor"
+   */
   router.put("/reserva", (req, res) => {  
-    const payload = req.body;
-    reservaCtrl.actualizarReserva(payload).then((result) => {
-      res.send(result);
-    })
+    const { id_reserva, ids_asientos, datos_pasajeros } = req.body;  // Obtenemos el id_reserva y los datos del cuerpo de la solicitud
+    
+    reservaCtrl.actualizarReserva(Number(id_reserva), { ids_asientos, datos_pasajeros })
+      .then((result) => {
+        res.send(result);
+      })
       .catch((error) => {
         res.status(505).send(error);
       });
   });
-
 
   //swagger 
   /** 
@@ -193,7 +238,6 @@ export const RutasReserva = () => {
    *         description: Error al eliminar la Reserva
    *   
    */
-
   router.patch("/cancelarReserva/:id", async (req, res) => {
     try {
       const idStr = req.params.id;
